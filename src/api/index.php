@@ -340,9 +340,11 @@ $app->get('/export/index', function () use ($app, &$DB) {
 	$index = $songIndex->getSongIndexForApp();
 
 	$json = json_encode($index, JSON_PRETTY_PRINT + JSON_NUMERIC_CHECK);
-	umask(0);
-	file_put_contents($path, $json);
-	@chmod($path, 0777);
+	if (file_exists($path)) {
+		umask(0);
+		file_put_contents($path, $json);
+		@chmod($path, 0777);
+	}
 	echo $json;
 });
 
@@ -400,8 +402,11 @@ $app->get('/export/indesign.zip', function () use ($app, &$DB) {
 // export html files & images for app
 $app->get('/export/html', function () use ($app, &$DB) {
 	umask(0);
-	//$path = '../../../rondo-app/app/www/resources/songs/';
 	$path = '../../../rondo-app/app/src/assets/songdata/songs/';
+
+	if (!file_exists($path)) {
+		die('folder does not exist: ' . $path);
+	}
 
 	$songIndex = new SongIndex();
 	$songIds = $songIndex->getAppSongIds();
