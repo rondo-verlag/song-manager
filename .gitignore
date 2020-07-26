@@ -1,0 +1,7 @@
+.idea
+node_modules/
+/composer.phar
+/vendor/
+/.htaccess
+
+/src/api/_conf.php
