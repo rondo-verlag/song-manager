@@ -321,7 +321,7 @@ $app->get('/export/listchords', function () use ($app, &$DB) {
 	$app->contentType('text/html');
 	$chords = [];
 
-	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseApp2017 = 1");
+	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1");
 
 	foreach($songs as $song_id){
 		$model = new Song($song_id['id']);
@@ -589,7 +589,7 @@ $app->get('/validate', function () use ($app, &$DB) {
 
 	$available_chord_icons = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7"];
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2017 = 1 or releaseApp2017 = 1 order by title ASC");
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2017 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
