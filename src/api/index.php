@@ -722,6 +722,19 @@ $app->get('/validateBook2021', function () use ($app, &$DB) {
 			$reportError('Status', 'Lied Status ist noch nicht "Fertig": '.$data['status'], $data);
 		}
 
+		// app crosscheck
+		if ($data['releaseBook2021'] && !$data['releaseApp2017']) {
+			$reportError('App', 'Lied ist ausgewählt für ins Buch, aber nicht für App', $data);
+		}
+
+		// License check
+		if ($data['copyrightStatusApp'] === 'NO_LICENSE' && $data['releaseApp2017']) {
+			$reportError('App Lizenz', 'Keine Lizenz für App erhalten, aber für App ausgewählt', $data);
+		}
+		if ($data['copyrightStatusBook2021'] === 'NO_LICENSE' && $data['releaseBook2021']) {
+			$reportError('Buch Lizenz', 'Keine Lizenz für Buch erhalten, aber für Buch ausgewählt', $data);
+		}
+
 		// App only
 		if ($data['releaseApp2017']) {
 
@@ -751,6 +764,7 @@ $app->get('/validateBook2021', function () use ($app, &$DB) {
 				$reportError('App Copyright', 'Copyright Status für App ist noch nicht "Fertig": ' . $data['copyrightStatusApp'], $data);
 			}
 		}
+
 
 
 		// Book only
