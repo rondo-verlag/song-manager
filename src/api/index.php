@@ -659,4 +659,118 @@ $app->get('/validate', function () use ($app, &$DB) {
 	}
 });
 
+$app->get('/validateBook2021', function () use ($app, &$DB) {
+	ini_set('max_execution_time', 300);
+	$app->contentType('text/html');
+	echo '<h1>Validierung</h1>';
+
+	$errors = [];
+	$reportError = function($category, $msg, $data) use (&$errors) {
+		if (!isset($errors[$category])) {
+			$errors[$category] = [];
+		}
+		$errors[$category][] = [$data, $msg];
+	};
+
+	$available_chord_icons = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7"];
+
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 order by title ASC");
+	foreach ($songIds as $songId) {
+		$song = new Song($songId['id']);
+		$data = $song->getData();
+
+		// validate pdf
+		if (!$data['rawNotesPDF']) {
+			$reportError('PDF', 'Kein PDF hochgeladen', $data);
+		}
+
+		// validate pdf
+		if (!$data['rawSIB']) {
+			$reportError('Sibelius', 'Keine Sibelius Datei hochgeladen', $data);
+		}
+
+		// validate songtext
+		if (strpos($data['text'], '   ') !== false) {
+			$reportError('Leerzeichen', 'Drei oder mehr aufeinanderfolgende Leerzeichen in Songtext gefunden', $data);
+		}
+		if (strpos($data['text'], "\n\n\n") !== false) {
+			$reportError('Newlines', 'Drei oder mehr aufeinanderfolgende Zeilenumbrüche in Songtext gefunden', $data);
+		}
+
+		// validate page number
+		if ($data['releaseBook2021'] && !$data['pageRondo2021']) {
+			$reportError('Seitenzahlen', 'Keine Seitenzahl für Buch 2021 eingetragen', $data);
+		}
+
+		// validate license status
+		if ($data['license'] == 'UNKNOWN') {
+			$reportError('Lizenz', 'Lizenz ist noch "Unbekannt"', $data);
+		}
+
+		// validate language
+		if (!$data['lang']) {
+			$reportError('Sprache', 'Keine Sprache ausgewählt', $data);
+		}
+
+		// validate mood
+		if (!$data['mood']) {
+			$reportError('Stimmung', 'Keine Stimmung eingetragen', $data);
+		}
+
+		// validate song status
+		if ($data['status'] != 'DONE') {
+			$reportError('Status', 'Lied Status ist noch nicht "Fertig": '.$data['status'], $data);
+		}
+
+		// App only
+		if ($data['releaseApp2017']) {
+
+			// validate files
+			if (!$data['rawImage']) {
+				$reportError('App Bild', 'Kein App Bild hochgeladen', $data);
+			}
+			if (!$data['rawMidi']) {
+				$reportError('App Midi', 'Keine Midi Datei hochgeladen', $data);
+			}
+
+			// youtube link
+			if (!$data['youtubeLink']) {
+				$reportError('Youtube', 'Kein Youtube Link eingetragen', $data);
+			}
+
+			// validate chords
+			$chords = $song->getClearedChordList();
+			foreach ($chords as $chord) {
+				if (!in_array($chord, $available_chord_icons)) {
+					$reportError('Akkordzeichnung', 'Akkord verwendet der keine Zeichnung (in der App) hat: '. $chord, $data);
+				}
+			}
+
+			// validate license status
+			if ($data['license'] != 'FREE' && $data['copyrightStatusApp'] != 'DONE') {
+				$reportError('App Copyright', 'Copyright Status für App ist noch nicht "Fertig": ' . $data['copyrightStatusApp'], $data);
+			}
+		}
+
+
+		// Book only
+		if ($data['releaseBook2021']) {
+			// validate license status
+			if ($data['license'] != 'FREE' && $data['copyrightStatusBook2021'] != 'DONE') {
+				$reportError('Buch Copyright', 'Copyright Status für Buch noch nicht "Fertig": ' . $data['copyrightStatusBook2021'], $data);
+			}
+		}
+	}
+
+	foreach ($errors as $category => $list) {
+		echo '<h2>'.$category.' ('.count($list).')</h2>';
+		foreach ($list as $item) {
+			echo '<b style="display: inline-block; width: 300px; overflow: hidden">';
+			echo '<a href="../..#/songs/'.$item[0]['id'].'">'.$item[0]['title'].'</a>:';
+			echo '</b>';
+			echo $item[1].'<br>';
+		}
+	}
+});
+
 $app->run();
