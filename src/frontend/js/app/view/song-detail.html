@@ -310,8 +310,8 @@
         <form>
           <div class="form-group">
             <label for="inputImage" class="control-label">Titelbild</label>
-            1242 x 660 px<br>
-            <input type="file" name="file" id="inputImage" onchange="angular.element(this).scope().uploadFile(this.files, 'rawImage')"/>
+            1242 x 660 px <i>(png, jpg, gif)</i><br>
+            <input type="file" name="file" id="inputImage" onchange="angular.element(this).scope().uploadFile(this.files, 'rawImage')" accept="image/png, image/gif, image/jpeg"/>
             <div ng-if="song.rawImageSize > 0">
               <br>
               <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawImage.png" target="_blank">Download</a>
@@ -322,7 +322,7 @@
 
           <div class="form-group">
             <label for="sibeliusFile" class="control-label">Sibelius Datei</label>
-            <input type="file" name="file" id="sibeliusFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawSIB')"/>
+            <input type="file" name="file" id="sibeliusFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawSIB')" accept=".sib"/>
             <div ng-if="song.rawSIBSize > 0">
               <br>
               <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawSIB.sib" target="_blank">Download</a>
@@ -333,7 +333,7 @@
 
           <div class="form-group">
             <label for="notesFile" class="control-label">Noten PDF</label>
-            <input type="file" name="file" id="notesFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawNotesPDF')"/>
+            <input type="file" name="file" id="notesFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawNotesPDF')" accept=".pdf"/>
             <div ng-if="song.rawNotesPDFSize > 0">
               <br>
               <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawNotesPDF.pdf" target="_blank">Download</a>
@@ -344,7 +344,7 @@
 
           <div class="form-group">
             <label for="midiFile" class="control-label">Midi Datei</label>
-            <input type="file" name="file" id="midiFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawMidi')"/>
+            <input type="file" name="file" id="midiFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawMidi')" accept=".mid"/>
             <div ng-if="song.rawMidiSize > 0">
               <br>
               <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawMidi.mid" target="_blank">Download</a>
