@@ -18,14 +18,14 @@ else
     # Update Source Code
     cd $PROJECT_DIR
     git status
-    git pull
+    git pull --rebase
     git submodule update --recursive
 fi
 
 
 # Update Source Code
 git status
-git pull
+git pull --rebase
 git submodule update --recursive
 
 
