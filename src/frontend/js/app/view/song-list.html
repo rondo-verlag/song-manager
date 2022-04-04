@@ -26,7 +26,7 @@
         <th ng-click="orderBy = 'copyrightStatusApp'; orderReversed = !orderReversed">&copy; App</th>
         <th ng-click="orderBy = 'copyrightStatusBook2021'; orderReversed = !orderReversed">&copy; Buch2021</th>
         <th ng-click="orderBy = 'releaseBook2017'; orderReversed = !orderReversed">Buch2017</th>
-        <th ng-click="orderBy = 'releaseApp2017'; orderReversed = !orderReversed">App</th>
+        <th ng-click="orderBy = 'releaseApp2022'; orderReversed = !orderReversed">App</th>
         <th ng-click="orderBy = 'releaseBook2021'; orderReversed = !orderReversed">Mova</th>
         <th>&nbsp;</th>
       </tr>
@@ -48,7 +48,7 @@
           <span ng-show="song.license === 'FREE'" style="color: green;">-</span>
         </td>
         <td><yesno state="song.releaseBook2017"></yesno></td>
-        <td><yesno state="song.releaseApp2017"></yesno></td>
+        <td><yesno state="song.releaseApp2022"></yesno></td>
         <td><yesno state="song.releaseBook2021"></yesno></td>
         <td><button type="button" class="btn btn-xs btn-success" ng-click="editSong(song.id)">Bearbeiten</button></td>
       </tr>

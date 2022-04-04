@@ -34,6 +34,7 @@ class Song
 		$this->data['pageRondo2017'] = (intval($this->data['pageRondo2017']) > 0 ? intval($this->data['pageRondo2017']) : null);
 		$this->data['pageRondo2021'] = (intval($this->data['pageRondo2021']) > 0 ? intval($this->data['pageRondo2021']) : null);
 		$this->data['releaseApp2017'] = $this->data['releaseApp2017'] ? 1 : 0;
+		$this->data['releaseApp2022'] = $this->data['releaseApp2022'] ? 1 : 0;
 		$this->data['releaseBook2017'] = $this->data['releaseBook2017'] ? 1 : 0;
 		$this->data['releaseBook2021'] = $this->data['releaseBook2021'] ? 1 : 0;
 

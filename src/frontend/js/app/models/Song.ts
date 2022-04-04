@@ -24,6 +24,7 @@ module rondo {
     copyrightStatusBook2017?: string;
     copyrightStatusBook2021?: string;
     releaseApp2017?: number;
+    releaseApp2022?: number;
     releaseBook2017?: number;
     releaseBook2021?: number;
     youtubeLink?: string;

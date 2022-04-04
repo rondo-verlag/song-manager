@@ -578,7 +578,7 @@ $app->get('/export/songs.csv', function (Request $request, Response $response, $
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
+	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseApp2022, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
 
 	$response = $response->withHeader('Content-Disposition', 'attachment; filename=songs.csv');
 	$response = $response->withHeader('Content-Type', 'text/csv');
@@ -604,7 +604,7 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
+	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseApp2022, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
 	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
 
 	$data = [];
@@ -648,7 +648,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 
 	$available_chord_icons = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7"];
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2017 = 1 order by title ASC");
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2017 = 1 or releaseApp2022 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
@@ -682,7 +682,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		}
 
 		// App only
-		if ($data['releaseApp2017']) {
+		if ($data['releaseApp2017'] || $data['releaseApp2022']) {
 
 			// validate files
 			if (!$data['rawImage']) {
@@ -782,12 +782,12 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 		}
 
 		// app crosscheck
-		if ($data['releaseBook2021'] && !$data['releaseApp2017']) {
+		if ($data['releaseBook2021'] && !$data['releaseApp2022']) {
 			$reportError('App', 'Lied ist ausgewählt für ins Buch, aber nicht für App', $data);
 		}
 
 		// License check
-		if ($data['copyrightStatusApp'] === 'NO_LICENSE' && $data['releaseApp2017']) {
+		if ($data['copyrightStatusApp'] === 'NO_LICENSE' && $data['releaseApp2022']) {
 			$reportError('App Lizenz', 'Keine Lizenz für App erhalten, aber für App ausgewählt', $data);
 		}
 		if ($data['copyrightStatusBook2021'] === 'NO_LICENSE' && $data['releaseBook2021']) {
@@ -795,7 +795,7 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 		}
 
 		// App only
-		if ($data['releaseApp2017']) {
+		if ($data['releaseApp2017'] || $data['releaseApp2022']) {
 
 			// validate files
 			if (!$data['rawImage']) {
