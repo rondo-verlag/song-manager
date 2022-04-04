@@ -1,4 +1,5 @@
 <?php
+/** @noinspection SqlResolve */
 
 require '../../vendor/autoload.php';
 
@@ -8,25 +9,32 @@ require 'models/Song.php';
 require 'models/SongIndex.php';
 
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\DBAL\DriverManager;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Slim\Factory\AppFactory;
 
 $DB = DriverManager::getConnection($SQL_CREDENTIALS, new \Doctrine\DBAL\Configuration());
 
 define ('EOL', PHP_EOL);
 
 
-$app = new \Slim\Slim();
-$app->config('debug', true);
-$app->response->headers->set('Content-Type', 'application/json');
+$app = AppFactory::create();
+$app->addRoutingMiddleware();
+$app->setBasePath($API_BASE_PATH ? $API_BASE_PATH : '/api');
+$app->addBodyParsingMiddleware();
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
-$app->get('/songs', function () use(&$DB) {
+$app->get('/songs', function (Request $request, Response $response, $args) use(&$DB) {
 	$si = new SongIndex();
-	echo json_encode($si->getSongIndex(), JSON_NUMERIC_CHECK);
+	$response->getBody()->write(json_encode($si->getSongIndex(), JSON_NUMERIC_CHECK));
+	return $response;
 });
 
-$app->get('/songs/:songId', function ($songId) {
+$app->get('/songs/{songId}', function (Request $request, Response $response, $args) {
+	$songId = $args['songId'];
 	$song = new Song($songId);
 	$data = $song->getData();
 
@@ -37,46 +45,55 @@ $app->get('/songs/:songId', function ($songId) {
 
 	foreach($data as $fieldname => $value){
 		if (startsWithRaw($fieldname)){
-			$data[$fieldname.'Size'] = strlen($data[$fieldname]);
+			$data[$fieldname.'Size'] = $data[$fieldname] ? strlen($data[$fieldname]) : 0;
 			unset($data[$fieldname]);
 		}
 	}
 
-	echo json_encode($data, JSON_NUMERIC_CHECK);
+	$response->getBody()->write(json_encode($data, JSON_NUMERIC_CHECK));
+	return $response;
 });
 
-$app->put('/songs/:songId', function ($songId) use ($app) {
+$app->put('/songs/{songId}', function (Request $request, Response $response, $args) {
+	$songId = $args['songId'];
 	$song = new Song($songId);
-	$data = json_decode($app->request->getBody(), true);
+	$data = json_decode($request->getBody(), true);
 	$song->setData($data)->save();
-	return true;
+	return $response;
 });
 
-$app->post('/songs', function () use ($app) {
+$app->post('/songs', function (Request $request, Response $response, $args) {
 	$song = new Song();
-	$data = json_decode($app->request->getBody(), true);
+	$data = json_decode($request->getBody(), true);
 	$song->setTitle(trim($data['title']));
 	$song->setInterpret(trim($data['interpret']));
 	$song->save();
-	return $song->getId();
+	$response->getBody()->write($song->getId());
+	return $response;
 });
 
-$app->get('/songs/:songId/html', function ($songId) use ($app) {
-	$app->contentType('text/html');
+$app->get('/songs/{songId}/html', function (Request $request, Response $response, $args) {
+	$songId = $args['songId'];
+	$response = $response->withHeader('Content-type', 'text/html');
 	$song = new Song($songId);
-	echo $song->getHtml();
+	$response->getBody()->write($song->getHtml());
+	return $response;
 });
 
 // testing only
-$app->get('/songs/:songId/crd', function ($songId) use ($app) {
-	$app->contentType('text/html');
+$app->get('/songs/{songId}/crd', function (Request $request, Response $response, $args) {
+	$songId = $args['songId'];
+	$response = $response->withHeader('Content-type', 'text/html');
 
 	$song = new Song($songId);
 	$result = CrdParser::run($song->getData()['text']);
 	var_dump($result);
+	return $response;
 });
 
-$app->get('/songs/:songId/raw/:rawType', function ($songId, $rawType) use ($app) {
+$app->get('/songs/{songId}/raw/{rawType}', function (Request $request, Response $response, $args) {
+	$songId = $args['songId'];
+	$rawType = $args['rawType'];
 	$ext = pathinfo($rawType, PATHINFO_EXTENSION);
 	$fieldname = pathinfo($rawType, PATHINFO_FILENAME);
 	$song = new Song($songId);
@@ -87,34 +104,38 @@ $app->get('/songs/:songId/raw/:rawType', function ($songId, $rawType) use ($app)
 	} else {
 		switch($ext){
 			case 'png':
-				$app->contentType('image/png');
+				$response = $response->withHeader('Content-type', 'image/png');
 				break;
 			case 'gif':
-				$app->contentType('image/gif');
+				$response = $response->withHeader('Content-type', 'image/gif');
 				break;
 			case 'pdf':
-				$app->contentType('application/pdf');
+				$response = $response->withHeader('Content-type', 'application/pdf');
 				break;
 			case 'mid':
 			case 'midi':
-				$app->contentType('audio/midi');
+				$response = $response->withHeader('Content-type', 'audio/midi');
 				break;
 			default:
-				$app->contentType('application/octet-stream');
+				$response = $response->withHeader('Content-type', 'application/octet-stream');
 		}
-		echo $data;
+		$response->getBody()->write($data);
+		return $response;
 	}
 });
 
-$app->post('/songs/:songId/:rawType', function ($songId, $rawType) use ($app) {
+$app->post('/songs/{songId}/{rawType}', function (Request $request, Response $response, $args) {
+	$songId = $args['songId'];
+	$rawType = $args['rawType'];
 	$song = new Song($songId);
 	$rawdata = file_get_contents($_FILES['file']['tmp_name']);
 	$song->setRawData($rawType, $rawdata);
 	$song->save();
+	return $response;
 });
 
-$app->get('/import/xml', function () use ($app) {
-	$app->contentType('text/html');
+$app->get('/import/xml', function (Request $request, Response $response, $args) {
+	$response = $response->withHeader('Content-type', 'text/html');
 
 	$path = '../../data/sibelius_export/converted-xml';
 	$files = scandir($path);
@@ -130,11 +151,14 @@ $app->get('/import/xml', function () use ($app) {
 			$song->save();
 		}
 	}
+	return $response;
 });
 
 // for testing purposes
-$app->get('/import/xml/:filename', function ($filename) use ($app) {
-	$app->contentType('text/html');
+$app->get('/import/xml/{filename}', function (Request $request, Response $response, $args) {
+	$filename = $args['filename'];
+
+	$response = $response->withHeader('Content-type', 'text/html');
 
 	$path = '../../data/sibelius_export/converted-xml';
 
@@ -148,10 +172,11 @@ $app->get('/import/xml/:filename', function ($filename) use ($app) {
 	} else {
 		throw new Exception('File does not exist: '.$path.'/'.$filename);
 	}
+	return $response;
 });
 
-$app->get('/import/sib', function () use ($app, &$DB) {
-	$app->contentType('text/html');
+$app->get('/import/sib', function (Request $request, Response $response, $args) use (&$DB) {
+	$response = $response->withHeader('Content-type', 'text/html');
 	ini_set('max_execution_time', 300);
 
 	$path = '../../data/sibelius_export/all';
@@ -174,10 +199,11 @@ $app->get('/import/sib', function () use ($app, &$DB) {
 			}
 		}
 	}
+	return $response;
 });
 
-$app->get('/import/midi', function () use ($app, &$DB) {
-	$app->contentType('text/html');
+$app->get('/import/midi', function (Request $request, Response $response, $args) use (&$DB) {
+	$response = $response->withHeader('Content-type', 'text/html');
 	ini_set('max_execution_time', 300);
 
 	$path = '../../data/sibelius_export/midi';
@@ -203,10 +229,11 @@ $app->get('/import/midi', function () use ($app, &$DB) {
 		}
 	}
 	var_dump("Files imported: $count");
+	return $response;
 });
 
-$app->get('/import/notespdf', function () use ($app, &$DB) {
-	$app->contentType('text/html');
+$app->get('/import/notespdf', function (Request $request, Response $response, $args) use (&$DB) {
+	$response = $response->withHeader('Content-type', 'text/html');
 	ini_set('max_execution_time', 300);
 
 	$files = [];
@@ -258,11 +285,11 @@ $app->get('/import/notespdf', function () use ($app, &$DB) {
 	foreach ($not_imported as $song) {
 		var_dump($song['id'] . ' - ' . $song['title']);
 	}
-
+	return $response;
 });
 
-$app->get('/import/png', function () use ($app, &$DB) {
-	$app->contentType('text/html');
+$app->get('/import/png', function (Request $request, Response $response, $args) use (&$DB) {
+	$response = $response->withHeader('Content-type', 'text/html');
 	ini_set('max_execution_time', 300);
 
 	$path = '../../data/sibelius_export/converted-png';
@@ -314,11 +341,12 @@ $app->get('/import/png', function () use ($app, &$DB) {
 			}
 		}
 	}
+	return $response;
 });
 
 // show used chords
-$app->get('/export/listchords', function () use ($app, &$DB) {
-	$app->contentType('text/html');
+$app->get('/export/listchords', function (Request $request, Response $response, $args) use (&$DB) {
+	$response = $response->withHeader('Content-type', 'text/html');
 	$chords = [];
 
 	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1");
@@ -329,12 +357,13 @@ $app->get('/export/listchords', function () use ($app, &$DB) {
 	}
 	$chords = array_unique($chords);
 	sort($chords);
-	echo implode('<br>',$chords);
 
+	$response->getBody()->write(implode('<br>',$chords));
+	return $response;
 });
 
 // export json index for app
-$app->get('/export/index', function () use ($app, &$DB) {
+$app->get('/export/index', function (Request $request, Response $response, $args) use (&$DB) {
 	$path = '../../../rondo-app/app/src/assets/songdata/songs/song-index.json';
 	$songIndex = new SongIndex();
 	$index = $songIndex->getSongIndexForApp();
@@ -345,11 +374,13 @@ $app->get('/export/index', function () use ($app, &$DB) {
 		file_put_contents($path, $json);
 		@chmod($path, 0777);
 	}
-	echo $json;
+	$response = $response->withHeader('Content-type', 'application/json');
+	$response->getBody()->write($json);
+	return $response;
 });
 
 // export xml index for indesign
-$app->get('/export/indesign.xml', function () use ($app, &$DB) {
+$app->get('/export/indesign.xml', function (Request $request, Response $response, $args) use (&$DB) {
 	$xml = '';
 	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 ORDER BY pageRondo2017 ASC");
 
@@ -358,17 +389,18 @@ $app->get('/export/indesign.xml', function () use ($app, &$DB) {
 		$xml .= $song->getXML();
 	}
 	$xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'.PHP_EOL.'<Rondo>'.PHP_EOL.$xml.PHP_EOL.'</Rondo>';
+	$response->getBody()->write($xml);
 
-	$app->response->headers->set('Content-Disposition', 'attachment; filename=indesign.xml');
-	$app->response->headers->set('Content-Type', 'application/xml');
+	$response = $response->withHeader('Content-Disposition', 'attachment; filename=indesign.xml');
+	$response = $response->withHeader('Content-type', 'application/xml');
 
-	echo $xml;
+	return $response;
 });
 
 
 // export indesign files with notes
-$app->get('/export/indesign.zip', function () use ($app, &$DB) {
-	$app->response->headers->set('Content-Type', 'application/zip');
+$app->get('/export/indesign.zip', function (Request $request, Response $response, $args) use (&$DB) {
+	header('Content-Type: application/zip');
 
 	$xml = '';
 
@@ -396,11 +428,12 @@ $app->get('/export/indesign.zip', function () use ($app, &$DB) {
 
 	# finish the zip stream
 	$zip->finish();
+	die();
 
 });
 
 // export html files & images for app
-$app->get('/export/html', function () use ($app, &$DB) {
+$app->get('/export/html', function (Request $request, Response $response, $args) use (&$DB) {
 	umask(0);
 	$path = '../../../rondo-app/app/src/assets/songdata/songs/';
 
@@ -426,7 +459,11 @@ $app->get('/export/html', function () use ($app, &$DB) {
 			// convert to gif
 			ob_start();
 			try {
-				imagegif(imagecreatefromstring($data['rawImage']));
+				$tmp = imagecreatefromstring($data['rawImage']);
+				if (!$tmp) {
+					throw new Exception('wrong image format!');
+				}
+				imagegif($tmp);
 				$image = ob_get_clean();
 				$imagepath = $path.'images/'.$songId['id'].'.gif';
 				file_put_contents($imagepath, $image);
@@ -437,10 +474,13 @@ $app->get('/export/html', function () use ($app, &$DB) {
 		}
 	}
 	echo count($songIds)." Songs exportiert.";
+	return $response;
 });
 
 // export html files & images as zip
-$app->get('/export/zip', function () use ($app, &$DB) {
+$app->get('/export/zip', function (Request $request, Response $response, $args) use (&$DB) {
+	header('Content-Type: application/zip');
+
 	# create a new zipstream object
 	$zip = new ZipStream\ZipStream('rondo_data_'.date('Y-m-d').'.zip');
 
@@ -459,10 +499,19 @@ $app->get('/export/zip', function () use ($app, &$DB) {
 		// generate image
 		if ($data['rawImage']){
 			// convert to gif
-			ob_start();
-			imagegif(imagecreatefromstring($data['rawImage']));
-			$image = ob_get_clean();
-			$zip->addFile('images/'.$songId['id'].'.gif', $image);
+			try {
+				ob_start();
+				$tmp = @imagecreatefromstring($data['rawImage']);
+				if (!$tmp) {
+					throw new Exception('wrong image format!');
+				}
+				imagegif($tmp);
+				$image = ob_get_clean();
+				$zip->addFile('images/'.$songId['id'].'.gif', $image);
+			} catch (Exception $exception) {
+//				var_dump('Image Problem with Song: ' . $songId['id'], $exception->getMessage());
+//				die();
+			}
 		}
 
 		// generate pdf
@@ -483,9 +532,10 @@ $app->get('/export/zip', function () use ($app, &$DB) {
 
 	# finish the zip stream
 	$zip->finish();
+	die();
 });
 
-$app->get('/export/bookindex.csv', function () use ($app, &$DB) {
+$app->get('/export/bookindex.csv', function (Request $request, Response $response, $args) use (&$DB) {
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
@@ -512,36 +562,45 @@ $app->get('/export/bookindex.csv', function () use ($app, &$DB) {
 
 	ksort($sortable, SORT_STRING | SORT_FLAG_CASE);
 
-	$app->response->headers->set('Content-Disposition', 'attachment; filename=bookindex.csv');
-	$app->response->headers->set('Content-Type', 'text/csv');
+	$response = $response->withHeader('Content-Disposition', 'attachment; filename=bookindex.csv');
+	$response = $response->withHeader('Content-Type', 'text/csv');
 
-	echo '"Liedtitel","Seite 2021","Seite 2017","Seite Grün","Seite Blau","Seite Rot","Haupttitel"' . "\n";
+	$csv = '"Liedtitel","Seite 2021","Seite 2017","Seite Grün","Seite Blau","Seite Rot","Haupttitel"' . "\n";
 	foreach ($sortable as $title => $song) {
-		echo '"'.$title.'",'.$song['pageRondo2021'].','.$song['pageRondo2017'].','.$song['pageRondoGreen'].','.$song['pageRondoBlue'].','.$song['pageRondoRed'].','.($song['isMainTitle'] ? '"Ja"' : '"Nein"') . "\n";
+		$csv .= '"'.$title.'",'.$song['pageRondo2021'].','.$song['pageRondo2017'].','.$song['pageRondoGreen'].','.$song['pageRondoBlue'].','.$song['pageRondoRed'].','.($song['isMainTitle'] ? '"Ja"' : '"Nein"') . "\n";
 	}
+
+	$response->getBody()->write($csv);
+	return $response;
 });
 
-$app->get('/export/songs.csv', function () use ($app, &$DB) {
+$app->get('/export/songs.csv', function (Request $request, Response $response, $args) use (&$DB) {
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
 	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
 
-	$app->response->headers->set('Content-Disposition', 'attachment; filename=songs.csv');
-	$app->response->headers->set('Content-Type', 'text/csv');
+	$response = $response->withHeader('Content-Disposition', 'attachment; filename=songs.csv');
+	$response = $response->withHeader('Content-Type', 'text/csv');
 
-	echo '"id","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Youtube Link",' . "\n";
+	$csv = '"id","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Youtube Link",' . "\n";
 	foreach ($songs as $song) {
 		foreach ($song as $key => $value) {
-			$value = str_replace('"', '""', $value);
-			$value = str_replace("\n", ' ', $value);
-			echo '"'.$value.'",';
+			if ($value !== null) {
+				$value = str_replace('"', '""', $value);
+				$value = str_replace("\n", ' ', $value);
+			} else {
+				$value = '';
+			}
+			$csv .= '"'.$value.'",';
 		}
-		echo "\n";
+		$csv .= "\n";
 	}
+	$response->getBody()->write($csv);
+	return $response;
 });
 
-$app->get('/export/songs.xlsx', function () use ($app, &$DB) {
+$app->get('/export/songs.xlsx', function (Request $request, Response $response, $args) use (&$DB) {
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
@@ -577,9 +636,9 @@ $app->get('/export/songs.xlsx', function () use ($app, &$DB) {
 	$writer->save('php://output');
 });
 
-$app->get('/validate', function () use ($app, &$DB) {
+$app->get('/validate', function (Request $request, Response $response, $args) use (&$DB) {
 	ini_set('max_execution_time', 300);
-	$app->contentType('text/html');
+	$response = $response->withHeader('Content-type', 'text/html');
 	echo '<pre>';
 
 	function invalid($msg, $data = []) {
@@ -655,13 +714,13 @@ $app->get('/validate', function () use ($app, &$DB) {
 				invalid('Copyright Status für Buch noch nicht gut: ' . $data['copyrightStatusBook2021'], $data);
 			}
 		}
-
 	}
+	return $response;
 });
 
-$app->get('/validateBook2021', function () use ($app, &$DB) {
+$app->get('/validateBook2021', function (Request $request, Response $response, $args) use (&$DB) {
 	ini_set('max_execution_time', 300);
-	$app->contentType('text/html');
+	$response = $response->withHeader('Content-type', 'text/html');
 	echo '<h1>Validierung</h1>';
 
 	$errors = [];
@@ -780,11 +839,12 @@ $app->get('/validateBook2021', function () use ($app, &$DB) {
 		echo '<h2>'.$category.' ('.count($list).')</h2>';
 		foreach ($list as $item) {
 			echo '<b style="display: inline-block; width: 300px; overflow: hidden">';
-			echo '<a href="../..#/songs/'.$item[0]['id'].'">'.$item[0]['title'].'</a>:';
+			echo '<a href="..#/songs/'.$item[0]['id'].'">'.$item[0]['title'].'</a>:';
 			echo '</b>';
 			echo $item[1].'<br>';
 		}
 	}
+	return $response;
 });
 
 $app->run();

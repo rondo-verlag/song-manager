@@ -301,7 +301,7 @@
 
         <h4>Sibelius Screenshot</h4>
         <br>
-        <a href="api/index.php/songs/{{song.id}}/raw/rawNotesPNG.png" target="_blank"><img src="api/index.php/songs/{{song.id}}/raw/rawNotesPNG.png" width="320"></a>
+        <a href="api/songs/{{song.id}}/raw/rawNotesPNG.png" target="_blank"><img src="api/songs/{{song.id}}/raw/rawNotesPNG.png" width="320"></a>
         <br>
         <br>
 
@@ -314,7 +314,7 @@
             <input type="file" name="file" id="inputImage" onchange="angular.element(this).scope().uploadFile(this.files, 'rawImage')"/>
             <div ng-if="song.rawImageSize > 0">
               <br>
-              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/index.php/songs/{{song.id}}/raw/rawImage.png" target="_blank">Download</a>
+              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawImage.png" target="_blank">Download</a>
               {{song.rawImageSize / 1048576 | number : 2}} MB
             </div>
             <div ng-if="song.rawImageSize == 0" class="text-muted"><br><i class="glyphicon glyphicon-remove-sign" style="color: red;"></i> Keine Datei hochgeladen</div>
@@ -325,7 +325,7 @@
             <input type="file" name="file" id="sibeliusFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawSIB')"/>
             <div ng-if="song.rawSIBSize > 0">
               <br>
-              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/index.php/songs/{{song.id}}/raw/rawSIB.sib" target="_blank">Download</a>
+              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawSIB.sib" target="_blank">Download</a>
               {{song.rawSIBSize / 1048576 | number : 2}} MB
             </div>
             <div ng-if="song.rawSIBSize == 0" class="text-muted"><br><i class="glyphicon glyphicon-remove-sign" style="color: red;"></i> Keine Datei hochgeladen</div>
@@ -336,7 +336,7 @@
             <input type="file" name="file" id="notesFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawNotesPDF')"/>
             <div ng-if="song.rawNotesPDFSize > 0">
               <br>
-              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/index.php/songs/{{song.id}}/raw/rawNotesPDF.pdf" target="_blank">Download</a>
+              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawNotesPDF.pdf" target="_blank">Download</a>
               {{song.rawNotesPDFSize / 1048576 | number : 2}} MB
             </div>
             <div ng-if="song.rawNotesPDFSize == 0" class="text-muted"><br><i class="glyphicon glyphicon-remove-sign" style="color: red;"></i> Keine Datei hochgeladen</div>
@@ -347,7 +347,7 @@
             <input type="file" name="file" id="midiFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawMidi')"/>
             <div ng-if="song.rawMidiSize > 0">
               <br>
-              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/index.php/songs/{{song.id}}/raw/rawMidi.mid" target="_blank">Download</a>
+              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawMidi.mid" target="_blank">Download</a>
               {{song.rawMidiSize / 1048576 | number : 2}} MB
             </div>
             <div ng-if="song.rawMidiSize == 0" class="text-muted"><br><i class="glyphicon glyphicon-remove-sign" style="color: red;"></i> Keine Datei hochgeladen</div>
@@ -358,7 +358,7 @@
             <input type="file" name="file" id="copyrightFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawCopyrightPDF')"/>
             <div ng-if="song.rawCopyrightPDFSize > 0">
               <br>
-              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/index.php/songs/{{song.id}}/raw/rawCopyrightPDF.pdf" target="_blank">Download</a>
+              <i class="glyphicon glyphicon-ok-sign" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawCopyrightPDF.pdf" target="_blank">Download</a>
               {{song.rawCopyrightPDFSize / 1048576 | number : 2}} MB
             </div>
             <div ng-if="song.rawCopyrightPDFSize == 0" class="text-muted"><br><i class="glyphicon glyphicon-remove-sign" style="color: red;"></i> Keine Datei hochgeladen</div>

@@ -109,7 +109,7 @@ class Song
 				$imgurl = 'resources/songs/images/'.$this->data['id'].'.gif?_t='.time();
 			} else {
 				// song-manager preview
-				$imgurl = 'api/index.php/songs/'.$this->data['id'].'/raw/rawImage.gif?_t='.time();
+				$imgurl = 'api/songs/'.$this->data['id'].'/raw/rawImage.gif?_t='.time();
 			}
 			$image = '<img src="'.$imgurl.'" class="song-image"/>';
 		} else {

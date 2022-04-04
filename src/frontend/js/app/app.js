@@ -105,7 +105,7 @@ var rondo;
             $scope.add = function () {
                 if ($scope.song.title != '') {
                     $scope.showLoading = true;
-                    $http.post("api/index.php/songs", $scope.song)
+                    $http.post("api/songs", $scope.song)
                         .success(function (data, status, headers, config) {
                         $scope.showLoading = false;
                         $scope.song.title = '';
@@ -154,7 +154,7 @@ var rondo;
             $scope.youtubeVideoId = null;
             this.loadData();
             $scope.uploader = new FileUploader({
-                url: 'api/index.php/songs/' + $routeParams.songId + '/musicxmlfiles'
+                url: 'api/songs/' + $routeParams.songId + '/musicxmlfiles'
             });
             $scope.uploader.onCompleteItem = function (item) {
                 $scope.uploader.clearQueue();
@@ -164,7 +164,7 @@ var rondo;
                 var fd = new FormData();
                 //Take the first selected file
                 fd.append("file", files[0]);
-                $http.post("api/index.php/songs/" + $routeParams.songId + "/" + type, fd, {
+                $http.post("api/songs/" + $routeParams.songId + "/" + type, fd, {
                     withCredentials: true,
                     headers: { 'Content-Type': undefined },
                     transformRequest: angular.identity
@@ -176,7 +176,7 @@ var rondo;
             };
             $scope.save = function () {
                 //console.log($scope.song);
-                $http.put("api/index.php/songs/" + $routeParams.songId, $scope.song)
+                $http.put("api/songs/" + $routeParams.songId, $scope.song)
                     .success(function (data, status, headers, config) {
                     self.loadData();
                     $scope.showSavedIcon = true;
@@ -195,7 +195,7 @@ var rondo;
         }
         SongDetailCtrl.prototype.loadData = function () {
             var self = this;
-            this.$http.get("api/index.php/songs/" + this.$routeParams.songId)
+            this.$http.get("api/songs/" + this.$routeParams.songId)
                 .success(function (data, status, headers, config) {
                 self.$scope.song = data;
                 var ytId = null;
@@ -210,7 +210,7 @@ var rondo;
                 .error(function (data, status, headers, config) {
                 console.log("AJAX failed!");
             });
-            this.$http.get("api/index.php/songs/" + this.$routeParams.songId + "/html")
+            this.$http.get("api/songs/" + this.$routeParams.songId + "/html")
                 .success(function (data, status, headers, config) {
                 self.$scope.preview = self.$sce.trustAsHtml(data);
             })
@@ -245,7 +245,7 @@ var rondo;
                 }
                 return true;
             };
-            $http.get("api/index.php/songs")
+            $http.get("api/songs")
                 .success(function (data, status, headers, config) {
                 $scope.list = data;
             })

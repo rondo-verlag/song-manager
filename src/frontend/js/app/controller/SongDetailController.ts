@@ -58,7 +58,7 @@ module rondo {
       this.loadData();
 
       $scope.uploader = new FileUploader({
-        url: 'api/index.php/songs/' + $routeParams.songId + '/musicxmlfiles'
+        url: 'api/songs/' + $routeParams.songId + '/musicxmlfiles'
       });
 
       $scope.uploader.onCompleteItem = function (item) {
@@ -71,7 +71,7 @@ module rondo {
         //Take the first selected file
         fd.append("file", files[0]);
 
-        $http.post("api/index.php/songs/" + $routeParams.songId + "/"+type, fd, {
+        $http.post("api/songs/" + $routeParams.songId + "/"+type, fd, {
           withCredentials: true,
           headers: {'Content-Type': undefined },
           transformRequest: angular.identity
@@ -86,7 +86,7 @@ module rondo {
       $scope.save = function () {
         //console.log($scope.song);
 
-        $http.put("api/index.php/songs/" + $routeParams.songId, $scope.song)
+        $http.put("api/songs/" + $routeParams.songId, $scope.song)
           .success(function (data, status, headers, config) {
             self.loadData();
             $scope.showSavedIcon = true;
@@ -107,7 +107,7 @@ module rondo {
 
     loadData() {
       var self = this;
-      this.$http.get("api/index.php/songs/" + this.$routeParams.songId)
+      this.$http.get("api/songs/" + this.$routeParams.songId)
         .success(function (data: rondo.ISong, status, headers, config) {
           self.$scope.song = data;
           var ytId = null;
@@ -123,7 +123,7 @@ module rondo {
           console.log("AJAX failed!");
         });
 
-      this.$http.get("api/index.php/songs/" + this.$routeParams.songId + "/html")
+      this.$http.get("api/songs/" + this.$routeParams.songId + "/html")
         .success(function (data, status, headers, config) {
           self.$scope.preview = self.$sce.trustAsHtml(data);
         })

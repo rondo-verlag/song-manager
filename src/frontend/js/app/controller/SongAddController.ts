@@ -30,7 +30,7 @@ module rondo {
       $scope.add = function () {
         if ($scope.song.title != '') {
           $scope.showLoading = true;
-          $http.post("api/index.php/songs", $scope.song)
+          $http.post("api/songs", $scope.song)
             .success(function (data, status, headers, config) {
               $scope.showLoading = false;
               $scope.song.title = '';

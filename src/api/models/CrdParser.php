@@ -19,14 +19,16 @@ class CrdParser {
 	public static function run($source) {
 		$tokens = array();
 
-		$offset = 0;
-		while($offset < strlen($source)) {
-			$result = static::_match($source, $offset);
-			if($result === false) {
-				throw new Exception("Zeichen " . ($offset+1) . ': Ungültiger Text: "'.substr($source, $offset, 20).'..."');
+		if ($source !== null) {
+			$offset = 0;
+			while($offset < strlen($source)) {
+				$result = static::_match($source, $offset);
+				if($result === false) {
+					throw new Exception("Zeichen " . ($offset+1) . ': Ungültiger Text: "'.substr($source, $offset, 20).'..."');
+				}
+				$tokens[] = $result;
+				$offset += strlen($result['match']);
 			}
-			$tokens[] = $result;
-			$offset += strlen($result['match']);
 		}
 
 		return $tokens;
@@ -46,4 +48,4 @@ class CrdParser {
 
 		return false;
 	}
-} 
+}

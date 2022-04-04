@@ -12,4 +12,6 @@ $SQL_CREDENTIALS = array(
 	)
 );
 
+//$API_BASE_PATH = '/path/to/song-manager/src/api';
+
 date_default_timezone_set('Europe/Zurich');

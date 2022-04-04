@@ -3,14 +3,16 @@
     "license": "proprietary",
     "type": "project",
     "require": {
-        "slim/slim": "~2.0",
+        "php": ">=8.1",
+        "slim/slim": "^4.10",
         "doctrine/dbal": "~2.5",
-        "maennchen/zipstream-php": "^0.3.1",
+        "maennchen/zipstream-php": "^2.1",
         "ext-json": "*",
         "ext-intl": "*",
         "ext-gd": "*",
         "ext-mbstring": "*",
         "ext-zip": "*",
-        "phpoffice/phpspreadsheet": "^1.11"
+        "phpoffice/phpspreadsheet": "^1.22",
+        "slim/psr7": "^1.5"
     }
 }

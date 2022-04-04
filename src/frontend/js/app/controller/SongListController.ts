@@ -36,7 +36,7 @@ module rondo {
         return true;
       };
 
-      $http.get("api/index.php/songs")
+      $http.get("api/songs")
         .success(function(data: Array<ISong>, status, headers, config) {
           $scope.list = data;
         })
