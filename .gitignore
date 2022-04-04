@@ -2,6 +2,7 @@
 node_modules/
 /composer.phar
 /vendor/
+/.htaccess
 /src/.htaccess
 
 /src/api/_conf.php
