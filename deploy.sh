@@ -34,8 +34,8 @@ cp $CONFIG_FILE $PROJECT_DIR/src/api/_conf.php
 cp $HTACCESS_FILE $PROJECT_DIR/src/.htaccess
 
 # Composer Install
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install
+curl -sS https://getcomposer.org/installer | php81
+php81 composer.phar install
 
 
 echo -e "\n ======= Installation Done ========\n"
