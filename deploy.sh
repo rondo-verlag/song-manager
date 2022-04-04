@@ -22,13 +22,6 @@ else
     git submodule update --recursive
 fi
 
-
-# Update Source Code
-git status
-git pull --rebase
-git submodule update --recursive
-
-
 # Install Config
 cp $CONFIG_FILE $PROJECT_DIR/src/api/_conf.php
 cp $HTACCESS_FILE $PROJECT_DIR/src/.htaccess
