@@ -605,7 +605,7 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
 	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseApp2022, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
-	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
+	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App (bis 2022)","App (ab 2022)","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
 
 	$data = [];
 	$data[] = $titles;
@@ -623,10 +623,10 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 	$sheet->getColumnDimension('B')->setWidth(30);
 	$sheet->getColumnDimension('C')->setWidth(30);
 	$sheet->getColumnDimension('D')->setWidth(20);
-	$sheet->getColumnDimension('S')->setWidth(50);
 	$sheet->getColumnDimension('T')->setWidth(50);
 	$sheet->getColumnDimension('U')->setWidth(50);
-	$sheet->getColumnDimension('V')->setWidth(200);
+	$sheet->getColumnDimension('V')->setWidth(50);
+	$sheet->getColumnDimension('W')->setWidth(200);
 
 	header('Content-Type: application/vnd.ms-excel');
 	header('Content-Disposition: attachment;filename="Songs.xlsx"');
