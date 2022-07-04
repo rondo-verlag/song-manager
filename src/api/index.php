@@ -648,7 +648,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 
 	$available_chord_icons = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7"];
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2017 = 1 or releaseApp2022 = 1 order by title ASC");
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
@@ -682,7 +682,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		}
 
 		// App only
-		if ($data['releaseApp2017'] || $data['releaseApp2022']) {
+		if ($data['releaseApp2022']) {
 
 			// validate files
 			if (!$data['rawImage']) {
@@ -795,7 +795,7 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 		}
 
 		// App only
-		if ($data['releaseApp2017'] || $data['releaseApp2022']) {
+		if ($data['releaseApp2022']) {
 
 			// validate files
 			if (!$data['rawImage']) {

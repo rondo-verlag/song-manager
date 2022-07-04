@@ -23,8 +23,7 @@ class SongIndex {
 	public function getAppSongIds() {
 		return $this->DB->fetchAll("SELECT id
 			FROM songs
-			WHERE releaseApp2017 = 1
-			OR releaseApp2022 = 1
+			WHERE releaseApp2022 = 1
 			ORDER BY cast(pageRondo2017 as unsigned) ASC");
 	}
 
