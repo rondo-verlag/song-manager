@@ -41,7 +41,14 @@ class SongIndex {
 			$title_uc = mb_convert_case($song['title'], MB_CASE_UPPER, "UTF-8");
 
 			// accords
-			$chords = $model->getClearedChordList();
+			$allchords = $model->getClearedChordList();
+			// remove unavailable chords
+			$chords = [];
+			foreach ($allchords as $chord) {
+				if (in_array($chord, AVAILABLE_CHORDS)) {
+					$chords[] = $chord;
+				}
+			}
 
 			$isFree = ($song['license'] == 'LICENSED' && $song['license_type'] != 'FREE' ? false : true);
 
