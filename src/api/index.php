@@ -20,7 +20,7 @@ $DB = DriverManager::getConnection($SQL_CREDENTIALS, new \Doctrine\DBAL\Configur
 
 define ('EOL', PHP_EOL);
 
-const AVAILABLE_CHORDS = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7","Db","Ab","G+","Eb","Asus2","Dbsus2","Bm-Gb","Bm-Ab","Bm","Bm-Eb","Absus4-Db"];
+const AVAILABLE_CHORDS = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7","Db","Ab","G+","Eb","Asus2","Dbsus2","Bm-Gb","Bm-Ab","Bm","Bm-Eb","Absus4-Db","D-Fis","G-H","F7","H","Em6","Em7","Cm","Gsus4"];
 
 
 $app = AppFactory::create();
