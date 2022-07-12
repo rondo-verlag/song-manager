@@ -743,7 +743,7 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 			$reportError('PDF', 'Kein PDF hochgeladen', $data);
 		}
 
-		// validate pdf
+		// validate sibelius
 		if (!$data['rawSIB']) {
 			$reportError('Sibelius', 'Keine Sibelius Datei hochgeladen', $data);
 		}
