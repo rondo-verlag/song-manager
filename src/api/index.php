@@ -20,6 +20,8 @@ $DB = DriverManager::getConnection($SQL_CREDENTIALS, new \Doctrine\DBAL\Configur
 
 define ('EOL', PHP_EOL);
 
+const AVAILABLE_CHORDS = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7","Db","Ab","G+","Eb","Asus2","Dbsus2","Bm-Gb","Bm-Ab","Bm","Bm-Eb","Absus4-Db"];
+
 
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
@@ -646,8 +648,6 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		echo $msg.'<br>';
 	}
 
-	$available_chord_icons = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7","Db","Ab","G+","Eb","Asus2","Dbsus2","Bm-Gb","Bm-Ab","Bm","Bm-Eb","Absus4-Db"];
-
 	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
@@ -695,7 +695,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 			// validate chords
 			$chords = $song->getClearedChordList();
 			foreach ($chords as $chord) {
-				if (!in_array($chord, $available_chord_icons)) {
+				if (!in_array($chord, AVAILABLE_CHORDS)) {
 					invalid('Akkord verwendet der keine Zeichnung hat: '. $chord, $data);
 				}
 			}
@@ -730,8 +730,6 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 		}
 		$errors[$category][] = [$data, $msg];
 	};
-
-	$available_chord_icons = ["A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm","G","G7","Gm","H7","Hm","Hm7"];
 
 	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
@@ -813,7 +811,7 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 			// validate chords
 			$chords = $song->getClearedChordList();
 			foreach ($chords as $chord) {
-				if (!in_array($chord, $available_chord_icons)) {
+				if (!in_array($chord, AVAILABLE_CHORDS)) {
 					$reportError('Akkordzeichnung', 'Akkord verwendet der keine Zeichnung (in der App) hat: '. $chord, $data);
 				}
 			}

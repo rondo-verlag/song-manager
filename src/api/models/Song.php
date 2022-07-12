@@ -288,7 +288,10 @@ class Song
 		$uncleaned_chords = $this->getChordList();
 		$cleaned = [];
 		foreach ($uncleaned_chords as $chord) {
-			$cleaned[] = str_replace('/', '-', preg_replace("/[^A-Za-z0-9+\/]/", '', $chord));
+			$chord = str_replace('/', '-', preg_replace("/[^A-Za-z0-9+\/]/", '', $chord));
+			if (in_array($chord, AVAILABLE_CHORDS)) {
+				$cleaned[] = $chord;
+			}
 		}
 		$list = array_unique($cleaned);
 		sort($list);
