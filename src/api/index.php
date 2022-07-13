@@ -356,7 +356,7 @@ $app->get('/export/listchords', function (Request $request, Response $response, 
 	$response = $response->withHeader('Content-type', 'text/html');
 	$chords = [];
 
-	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1");
+	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 = 1");
 
 	foreach($songs as $song_id){
 		$model = new Song($song_id['id']);
