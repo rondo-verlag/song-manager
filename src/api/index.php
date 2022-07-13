@@ -722,7 +722,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 	return $response;
 });
 
-$app->get('/validateBook2021', function (Request $request, Response $response, $args) use (&$DB) {
+$app->get('/validate2022', function (Request $request, Response $response, $args) use (&$DB) {
 	ini_set('max_execution_time', 300);
 	$response = $response->withHeader('Content-type', 'text/html');
 	echo '<h1>Validierung</h1>';
@@ -735,7 +735,7 @@ $app->get('/validateBook2021', function (Request $request, Response $response, $
 		$errors[$category][] = [$data, $msg];
 	};
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 order by title ASC");
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
