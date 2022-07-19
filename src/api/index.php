@@ -21,10 +21,14 @@ $DB = DriverManager::getConnection($SQL_CREDENTIALS, new \Doctrine\DBAL\Configur
 define ('EOL', PHP_EOL);
 
 const AVAILABLE_CHORDS = [
-	"A","A7","Am","Am7","B","C","C7","D","D7","Dm","E","E7","Em","F-bar","F","Fis","Fism","Fm",
-	"G","G7","Gm","H7","Hm","Hm7","Db","Ab","G+","Eb","Asus2","Dbsus2","Bm-Gb","Bm-Ab","Bm","Bm-Eb","Absus4-Db","D-Fis",
-	"G-H","F7","H","Em6","Em7","Cm","Gsus4","H7sus4","Fis7","Fism7","Cism","Gism","C-G","C-H","Dm6","Dm7","Am6",
-	"Hsus4","E7sus4","Asus4","Dsus4","Esus4"
+	"A","A7","Ab","Absus4-Db","Am","Am6","Am7","Asus2","Asus4",
+	"B","Bm","Bm-Ab","Bm-Eb","Bm-Gb",
+	"C","C-G","C-H","C7","Cism","Cm",
+	"D","D-Fis","D7","Db","Dbsus2","Dm","Dm6","Dm7","Dmaj7","Dsus4",
+	"E","E7","E7sus4","Eb","Em","Em6","Em7","Esus4",
+	"F","F-bar","F7","Fis","Fis7","Fism","Fism7","Fm",
+	"G","G+","G-H","G7","Gism","Gm","Gsus4",
+	"H","H7","H7sus4","Hm","Hm7","Hsus4"
 ];
 
 
