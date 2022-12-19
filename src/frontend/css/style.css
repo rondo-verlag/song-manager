@@ -22,11 +22,33 @@
 }
 
 .rondo-page-numbers input {
-    padding-left: 4px;
-    padding-right: 4px;
-    min-width: 40px;
-    margin-top: 1px;
+	padding-left: 4px;
+	padding-right: 4px;
+	min-width: 40px;
+	margin-top: 1px;
 }
+
+.ausgabe-filter {
+	margin-top: 4px !important;
+	margin-right: 10px
+}
+
+.ausgabe-filter label {
+	border: 1px solid #eee;
+	border-radius: 10px;
+	padding: 0 10px !important;
+}
+
+.ausgabe-filter--active label {
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+
+.ausgabe-filter label input {
+	top: 1px;
+}
+
 
 .songtext {
   font-size: 1.3em;

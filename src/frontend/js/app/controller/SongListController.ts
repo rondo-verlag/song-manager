@@ -8,9 +8,12 @@ module rondo {
     search: String;
     orderBy: String;
     orderReversed: boolean;
-    movaFilterActive: boolean;
+    filter2017Active: boolean;
+    filter2021Active: boolean;
+    filter2024Active: boolean;
+    filterAppActive: boolean;
     editSong(int): void;
-    movaFilter(item: ISong): boolean;
+    releaseFilter(item: ISong): boolean;
   }
 
   export class SongListCtrl {
@@ -27,13 +30,30 @@ module rondo {
       $scope.search = "";
       $scope.orderBy = 'title';
       $scope.orderReversed = false;
-      $scope.movaFilterActive = true;
+      $scope.filter2017Active = false;
+      $scope.filter2021Active = false;
+      $scope.filter2024Active = false;
+      $scope.filterAppActive = false;
 
-      $scope.movaFilter = function(item: ISong) {
-        if ($scope.movaFilterActive) {
-          return item.releaseBook2021 == 1;
+      $scope.releaseFilter = function(item: ISong) {
+        if ($scope.filter2017Active || $scope.filter2021Active || $scope.filter2024Active || $scope.filterAppActive) {
+          let show = false;
+          if ($scope.filter2017Active && item.releaseBook2017 == 1) {
+            show = true
+          }
+          if ($scope.filter2021Active && item.releaseBook2021 == 1) {
+            show = true
+          }
+          if ($scope.filter2024Active && item.releaseBook2024 == 1) {
+            show = true
+          }
+          if ($scope.filterAppActive && item.releaseApp2024 == 1) {
+            show = true
+          }
+          return show;
+        } else {
+          return true;
         }
-        return true;
       };
 
       $http.get("api/songs")

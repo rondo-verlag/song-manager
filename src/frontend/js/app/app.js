@@ -238,12 +238,30 @@ var rondo;
             $scope.search = "";
             $scope.orderBy = 'title';
             $scope.orderReversed = false;
-            $scope.movaFilterActive = true;
-            $scope.movaFilter = function (item) {
-                if ($scope.movaFilterActive) {
-                    return item.releaseBook2021 == 1;
+            $scope.filter2017Active = false;
+            $scope.filter2021Active = false;
+            $scope.filter2024Active = false;
+            $scope.filterAppActive = false;
+            $scope.releaseFilter = function (item) {
+                if ($scope.filter2017Active || $scope.filter2021Active || $scope.filter2024Active || $scope.filterAppActive) {
+                    var show = false;
+                    if ($scope.filter2017Active && item.releaseBook2017 == 1) {
+                        show = true;
+                    }
+                    if ($scope.filter2021Active && item.releaseBook2021 == 1) {
+                        show = true;
+                    }
+                    if ($scope.filter2024Active && item.releaseBook2024 == 1) {
+                        show = true;
+                    }
+                    if ($scope.filterAppActive && item.releaseApp2024 == 1) {
+                        show = true;
+                    }
+                    return show;
                 }
-                return true;
+                else {
+                    return true;
+                }
             };
             $http.get("api/songs")
                 .success(function (data, status, headers, config) {

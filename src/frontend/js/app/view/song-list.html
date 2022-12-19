@@ -6,9 +6,27 @@
       <input type="text" class="form-control" ng-model="search" placeholder="Suchen...">
     </div>
     <form class="form-inline">
-      <div class="checkbox">
+      <div style="color: #555">
+        Nach Ausgabe filtern:
+      </div>
+      <div class="checkbox ausgabe-filter" ng-class="{'ausgabe-filter--active':filter2017Active}">
         <label>
-          <input type="checkbox" ng-model="movaFilterActive"> Nur <b>mova</b> Songs anzeigen
+          <input type="checkbox" ng-model="filter2017Active"> 2017
+        </label>
+      </div>
+      <div class="checkbox ausgabe-filter" ng-class="{'ausgabe-filter--active':filter2021Active}">
+        <label>
+          <input type="checkbox" ng-model="filter2021Active"> mova
+        </label>
+      </div>
+      <div class="checkbox ausgabe-filter" ng-class="{'ausgabe-filter--active':filterAppActive}">
+        <label>
+          <input type="checkbox" ng-model="filterAppActive"> App
+        </label>
+      </div>
+      <div class="checkbox ausgabe-filter" ng-class="{'ausgabe-filter--active':filter2024Active}">
+        <label>
+          <input type="checkbox" ng-model="filter2024Active"> 2024
         </label>
       </div>
     </form>
@@ -25,14 +43,14 @@
         <th ng-click="orderBy = 'hasMidi'; orderReversed = !orderReversed">Midi</th>
         <th ng-click="orderBy = 'copyrightStatusApp'; orderReversed = !orderReversed">&copy; App</th>
         <th ng-click="orderBy = 'copyrightStatusBook2024'; orderReversed = !orderReversed">&copy; Buch2024</th>
-        <th ng-click="orderBy = 'copyrightStatusBook2021'; orderReversed = !orderReversed">&copy; Buch2021</th>
+        <th ng-click="orderBy = 'copyrightStatusBook2021'; orderReversed = !orderReversed">&copy; BuchMova</th>
         <th ng-click="orderBy = 'releaseApp2024'; orderReversed = !orderReversed">App</th>
         <th ng-click="orderBy = 'releaseBook2024'; orderReversed = !orderReversed">Buch2024</th>
         <th ng-click="orderBy = 'releaseBook2021'; orderReversed = !orderReversed">mova</th>
         <th ng-click="orderBy = 'releaseBook2017'; orderReversed = !orderReversed">Buch2017</th>
         <th>&nbsp;</th>
       </tr>
-      <tr ng-repeat="song in filtered = (list | filter:movaFilter | filter:search | orderBy : orderBy : orderReversed )" ng-dblclick="editSong(song.id)">
+      <tr ng-repeat="song in filtered = (list | filter:releaseFilter | filter:search | orderBy : orderBy : orderReversed )" ng-dblclick="editSong(song.id)">
         <td>{{song.id}}</td>
         <td>{{song.title}}</td>
         <td>{{song.interpret}}</td>
