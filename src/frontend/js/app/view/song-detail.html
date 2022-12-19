@@ -27,8 +27,8 @@
             <div class="col-sm-9">
               <textarea id="alternativeTitles" class="form-control" rows="2" ng-model="song.alternativeTitles"></textarea>
               <span class="small">
-                Alternative Titel unter denen das Lied aufgelistet wird (Erste Zeile, Refrain etc.). Ein Titel pro Zeile. <br>
-                Erster Buchstabe gross, ansonsten wie Text</span>
+                Alternative Titel unter denen das Lied im Inhaltsverzeichnis aufgelistet wird - die nicht fett gedruckten Titel. z.B. Erste Zeile, Refrain etc.<br>
+                Ein Titel pro Zeile. Erster Buchstabe gross, ansonsten wie Text. Alternative Titel sind optional</span>
             </div>
           </div>
 
@@ -114,25 +114,38 @@
               <input type="text" ng-model="song.pageRondo2017" class="form-control" placeholder="Seite">
             </div>
             <div class="col-sm-1">
-              <span class="label label-success" style="background: #fbeb00; color: #d23700;">2021</span>
+              <span class="label label-success" style="background: #fbeb00; color: #d23700;">mova</span>
               <input type="text" ng-model="song.pageRondo2021" class="form-control" placeholder="Seite">
+            </div>
+            <div class="col-sm-1">
+              <span class="label label-success" style="background: #52009b; color: #ffffff;">2024</span>
+              <input type="text" ng-model="song.pageRondo2024" class="form-control" placeholder="Seite">
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-3 control-label">Auflagen</label>
-
-            <div class="col-sm-2">
-              <label><input type="checkbox" ng-model="song.releaseBook2017" ng-true-value="1" ng-false-value="0" disabled> Rondo 2017</label>
-            </div>
-            <div class="col-sm-2">
-              <label><input type="checkbox" ng-model="song.releaseBook2021" ng-true-value="1" ng-false-value="0"> Mova Rondo</label>
-            </div>
-            <div class="col-sm-2">
-              <label><input type="checkbox" disabled ng-model="song.releaseApp2017" ng-true-value="1" ng-false-value="0"> App (bis 2022)</label>
-            </div>
-            <div class="col-sm-2">
-              <label><input type="checkbox" ng-model="song.releaseApp2022" ng-true-value="1" ng-false-value="0"> App (ab 2022)</label>
+            <div class="col-sm-9">
+              <div class="row" style="padding-top: 6px">
+                <div class="col-sm-2">
+                  <label><input type="checkbox" ng-model="song.releaseBook2017" ng-true-value="1" ng-false-value="0" disabled> Rondo 2017</label>
+                </div>
+                <div class="col-sm-2">
+                  <label><input type="checkbox" ng-model="song.releaseBook2021" ng-true-value="1" ng-false-value="0" disabled> Mova Rondo</label>
+                </div>
+                <div class="col-sm-2">
+                  <label><input type="checkbox" ng-model="song.releaseBook2024" ng-true-value="1" ng-false-value="0"> Rondo 2024</label>
+                </div>
+                <div class="col-sm-2">
+                  <label><input type="checkbox" ng-model="song.releaseApp2017" ng-true-value="1" ng-false-value="0" disabled> App (bis 2022)</label>
+                </div>
+                <div class="col-sm-2">
+                  <label><input type="checkbox" ng-model="song.releaseApp2022" ng-true-value="1" ng-false-value="0" disabled> App (ab 2022)</label>
+                </div>
+                <div class="col-sm-2">
+                  <label><input type="checkbox" ng-model="song.releaseApp2024" ng-true-value="1" ng-false-value="0"> App (ab 2024)</label>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -140,8 +153,8 @@
           <div class="form-group">
             <label for="status" class="col-sm-3 control-label">Status</label>
 
-            <div class="col-sm-9">
-              <select ng-model="song.status" id="status">
+            <div class="col-sm-9 form-inline">
+              <select ng-model="song.status" id="status" class="form-control">
                 <option value="NEW">Neu</option>
                 <option value="INPROGRESS">In Arbeit</option>
                 <option value="DONE">Fertig</option>
@@ -154,7 +167,7 @@
             <label for="comments" class="col-sm-3 control-label">Kommentar zum Status</label>
 
             <div class="col-sm-9">
-              <textarea id="comments" class="form-control" rows="4" ng-model="song.comments"></textarea>
+              <textarea id="comments" class="form-control" rows="7" ng-model="song.comments"></textarea>
             </div>
           </div>
 
@@ -190,8 +203,8 @@
           <div class="form-group">
             <label for="license" class="col-sm-3 control-label">Lizenz</label>
 
-            <div class="col-sm-9">
-              <select ng-model="song.license" id="license">
+            <div class="col-sm-9 form-inline">
+              <select ng-model="song.license" id="license" class="form-control">
                 <option value="UNKNOWN">Unbekannt</option>
                 <option value="LICENSED">Lizenziert</option>
                 <option value="FREE">Frei</option>
@@ -206,8 +219,8 @@
             <div class="form-group" ng-if="song.license == 'LICENSED'">
               <label for="license" class="col-sm-3 control-label">Lizenz-Typ</label>
 
-              <div class="col-sm-9">
-                <select ng-model="song.license_type" id="license-type">
+              <div class="col-sm-9 form-inline">
+                <select ng-model="song.license_type" id="license-type" class="form-control">
                   <option value="UNKNOWN">Unbekannt</option>
                   <option value="ONE_TIME">Einmalig</option>
                   <option value="ANNUAL">Jährlich</option>
@@ -245,8 +258,8 @@
             <div class="form-group">
               <label for="copyrightStatusApp" class="col-sm-3 control-label">Copyright Status App</label>
 
-              <div class="col-sm-9">
-                <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp">
+              <div class="col-sm-9 form-inline">
+                <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-control">
                   <option value="NEW">Neu</option>
                   <option value="INPROGRESS">In Arbeit</option>
                   <option value="DONE">Fertig</option>
@@ -259,22 +272,29 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Copyright Status Buch 2017</label>
 
-              <div class="col-sm-9">
+              <div class="col-sm-9" style="padding-top: 6px">
                 <status status="song.copyrightStatusBook2017"></status>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Copyright Status Buch 2021</label>
+
+              <div class="col-sm-9" style="padding-top: 6px">
+                <status status="song.copyrightStatusBook2021"></status>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="copyrightStatusBook2021" class="col-sm-3 control-label">Copyright Status Buch 2021</label>
+              <label for="copyrightStatusBook2024" class="col-sm-3 control-label">Copyright Status Buch 2024</label>
 
-              <div class="col-sm-9">
-                <select ng-model="song.copyrightStatusBook2021" id="copyrightStatusBook2021">
+              <div class="col-sm-9 form-inline">
+                <select ng-model="song.copyrightStatusBook2024" id="copyrightStatusBook2024" class="form-control">
                   <option value="NEW">Neu</option>
                   <option value="INPROGRESS">In Arbeit</option>
                   <option value="DONE">Fertig</option>
                   <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
                 </select>
-                <status status="song.copyrightStatusBook2021"></status>
+                <status status="song.copyrightStatusBook2024"></status>
               </div>
             </div>
           </div>

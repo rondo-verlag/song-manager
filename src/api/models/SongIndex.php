@@ -10,7 +10,7 @@ class SongIndex {
 
 	public function getSongIndex(){
 		$songs = $this->DB->fetchAll("SELECT 
-				 id, title, interpret, license, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, releaseApp2017, releaseApp2022, releaseBook2017, releaseBook2021,
+				 id, title, interpret, license, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024,
 				 (rawImage IS NOT NULL) AS hasImage,
 				 (rawSIB IS NOT NULL) AS hasSIB,
 				 (rawMidi IS NOT NULL) AS hasMidi,
@@ -23,7 +23,7 @@ class SongIndex {
 	public function getAppSongIds() {
 		return $this->DB->fetchAll("SELECT id
 			FROM songs
-			WHERE releaseApp2022 = 1
+			WHERE releaseApp2024 = 1
 			ORDER BY cast(pageRondo2017 as unsigned) ASC");
 	}
 
@@ -60,6 +60,7 @@ class SongIndex {
 				'pageRondoGreen' => $song['pageRondoGreen'],
 				'pageRondo2017' => $song['pageRondo2017'],
 				'pageRondo2021' => $song['pageRondo2021'],
+				'pageRondo2024' => $song['pageRondo2024'],
 				'interpret' => $song['interpret'],
 				'chords' => $chords,
 				'alternative' => false,
@@ -79,6 +80,7 @@ class SongIndex {
 						'pageRondoGreen' => $song['pageRondoGreen'],
 						'pageRondo2017' => $song['pageRondo2017'],
 						'pageRondo2021' => $song['pageRondo2021'],
+						'pageRondo2024' => $song['pageRondo2024'],
 						'interpret' => $song['interpret'],
 						'chords' => $chords,
 						'alternative' => true,

@@ -360,7 +360,7 @@ $app->get('/export/listchords', function (Request $request, Response $response, 
 	$response = $response->withHeader('Content-type', 'text/html');
 	$chords = [];
 
-	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 = 1");
+	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 = 1");
 
 	foreach($songs as $song_id){
 		$model = new Song($song_id['id']);
@@ -393,7 +393,7 @@ $app->get('/export/index', function (Request $request, Response $response, $args
 // export xml index for indesign
 $app->get('/export/indesign.xml', function (Request $request, Response $response, $args) use (&$DB) {
 	$xml = '';
-	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 ORDER BY pageRondo2017 ASC");
+	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
 
 	foreach($songs as $song_id) {
 		$song = new Song($song_id['id']);
@@ -418,7 +418,7 @@ $app->get('/export/indesign.zip', function (Request $request, Response $response
 	# create a new zipstream object
 	$zip = new ZipStream\ZipStream('rondo_indesign_'.date('Y-m-d').'.zip');
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 ORDER BY pageRondo2017 ASC");
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
 
 	foreach($songIds as $songId){
 		$song = new Song($songId['id']);
@@ -551,7 +551,7 @@ $app->get('/export/bookindex.csv', function (Request $request, Response $respons
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
 	$sortable = [];
-	$songs = $DB->fetchAll("SELECT title, alternativeTitles, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021 FROM songs WHERE releaseBook2021 = 1");
+	$songs = $DB->fetchAll("SELECT title, alternativeTitles, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024 FROM songs WHERE releaseBook2024 = 1");
 
 	foreach ($songs as $song) {
 
@@ -576,9 +576,9 @@ $app->get('/export/bookindex.csv', function (Request $request, Response $respons
 	$response = $response->withHeader('Content-Disposition', 'attachment; filename=bookindex.csv');
 	$response = $response->withHeader('Content-Type', 'text/csv');
 
-	$csv = '"Liedtitel","Seite 2021","Seite 2017","Seite Grün","Seite Blau","Seite Rot","Haupttitel"' . "\n";
+	$csv = '"Liedtitel","Seite 2024","Seite mova","Seite Orange","Seite Grün","Seite Blau","Seite Rot","Haupttitel"' . "\n";
 	foreach ($sortable as $title => $song) {
-		$csv .= '"'.$title.'",'.$song['pageRondo2021'].','.$song['pageRondo2017'].','.$song['pageRondoGreen'].','.$song['pageRondoBlue'].','.$song['pageRondoRed'].','.($song['isMainTitle'] ? '"Ja"' : '"Nein"') . "\n";
+		$csv .= '"'.$title.'",'.$song['pageRondo2024'].','.$song['pageRondo2021'].','.$song['pageRondo2017'].','.$song['pageRondoGreen'].','.$song['pageRondoBlue'].','.$song['pageRondoRed'].','.($song['isMainTitle'] ? '"Ja"' : '"Nein"') . "\n";
 	}
 
 	$response->getBody()->write($csv);
@@ -589,12 +589,12 @@ $app->get('/export/songs.csv', function (Request $request, Response $response, $
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseApp2022, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
+	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
 
 	$response = $response->withHeader('Content-Disposition', 'attachment; filename=songs.csv');
 	$response = $response->withHeader('Content-Type', 'text/csv');
 
-	$csv = '"id","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Youtube Link",' . "\n";
+	$csv = '"id","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo mova","Seite Rondo 2024","App","Buch 2017","Buch mova","Buch 2024","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Copyright Status Buch 2024","Lizenz","Lizentyp","Youtube Link",' . "\n";
 	foreach ($songs as $song) {
 		foreach ($song as $key => $value) {
 			if ($value !== null) {
@@ -615,8 +615,8 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseApp2022, releaseBook2017, releaseBook2021, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
-	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo 2021","App (bis 2022)","App (ab 2022)","Buch 2017","Buch 2021","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
+	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
+	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo mova","Seite Rondo 2024","App (bis 2022)","App (ab 2022)","App (ab 2024)","Buch 2017","Buch mova","Buch 2024","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Copyright Status Buch 2024","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
 
 	$data = [];
 	$data[] = $titles;
@@ -657,7 +657,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		echo $msg.'<br>';
 	}
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 = 1 order by title ASC");
+	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
@@ -676,8 +676,8 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		//}
 
 		// validate page number
-		if ($data['releaseBook2021'] && !$data['pageRondo2021']) {
-			invalid('Keine Seitenzahl für Buch 2021', $data);
+		if ($data['releaseBook2024'] && !$data['pageRondo2024']) {
+			invalid('Keine Seitenzahl für Buch 2024', $data);
 		}
 
 		// validate license status
@@ -691,7 +691,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		}
 
 		// App only
-		if ($data['releaseApp2022']) {
+		if ($data['releaseApp2024']) {
 
 			// validate files
 			if (!$data['rawImage']) {
@@ -717,10 +717,10 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 
 
 		// Book only
-		if ($data['releaseBook2021']) {
+		if ($data['releaseBook2024']) {
 			// validate license status
-			if ($data['license'] != 'FREE' && $data['copyrightStatusBook2021'] != 'DONE') {
-				invalid('Copyright Status für Buch noch nicht gut: ' . $data['copyrightStatusBook2021'], $data);
+			if ($data['license'] != 'FREE' && $data['copyrightStatusBook2024'] != 'DONE') {
+				invalid('Copyright Status für Buch noch nicht gut: ' . $data['copyrightStatusBook2024'], $data);
 			}
 		}
 	}
