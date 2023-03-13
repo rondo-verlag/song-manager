@@ -1,15 +1,15 @@
 <span class="song-license" ng-switch on="license">
   <span ng-switch-when="UNKNOWN" style="color: gray;">
-    <i class="glyphicon glyphicon-question-sign"></i> Unbekannt
+    <i class="fa fa-question-circle"></i> Unbekannt
   </span>
   <span ng-switch-when="ONE_TIME" style="color: green;">
-    <i class="glyphicon glyphicon-check"></i> Einmalig
+    <i class="fa fa-check-circle"></i> Einmalig
   </span>
   <span ng-switch-when="ANNUAL" style="color: orange;">
-    <i class="glyphicon glyphicon-repeat"></i> Jährlich
+    <i class="fa fa-repeat"></i> Jährlich
   </span>
   <span ng-switch-when="FREE" style="color: green;">
-    <i class="glyphicon glyphicon-gift"></i> Gratis
+    <i class="fa fa-gift"></i> Gratis
   </span>
   <span ng-switch-default>{{status}}</span>
 </span>
