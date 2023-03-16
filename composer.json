@@ -4,15 +4,15 @@
     "type": "project",
     "require": {
         "php": ">=8.1",
-        "slim/slim": "^4.10",
-        "doctrine/dbal": "~2.5",
-        "maennchen/zipstream-php": "^2.1",
+        "slim/slim": "^4.10.0",
+        "doctrine/dbal": "^v2.5.13",
+        "maennchen/zipstream-php": "^2.1.0",
         "ext-json": "*",
         "ext-intl": "*",
         "ext-gd": "*",
         "ext-mbstring": "*",
         "ext-zip": "*",
-        "phpoffice/phpspreadsheet": "^1.22",
-        "slim/psr7": "^1.5"
+        "phpoffice/phpspreadsheet": "^1.22.0",
+        "slim/psr7": "^1.6.0"
     }
 }
