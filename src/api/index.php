@@ -1,6 +1,11 @@
 <?php
 /** @noinspection SqlResolve */
 
+@trigger_error(
+    'QuantumDefraculator::__invoke() is deprecated.',
+    E_USER_DEPRECATED
+);
+
 require '../../vendor/autoload.php';
 
 require '_conf.php';
@@ -198,7 +203,7 @@ $app->get('/import/sib', function (Request $request, Response $response, $args) 
 			$songtitle = substr($file, 0, -4);
 			$songtitle = str_replace('_0001','',$songtitle);
 			//var_dump($songtitle);
-			$ids = $DB->fetchAll("SELECT id FROM songs WHERE title = ?", array($songtitle));
+			$ids = $DB->fetchAllAssociative("SELECT id FROM songs WHERE title = ?", array($songtitle));
 			if(isset($ids[0]['id'])){
 				var_dump($ids[0]['id']);
 				$data = file_get_contents($path.'/'.$file);
@@ -226,7 +231,7 @@ $app->get('/import/midi', function (Request $request, Response $response, $args)
 			$songtitle = substr($file, 0, -4);
 			$songtitle = normalizer_normalize($songtitle);
 			//var_dump($songtitle);
-			$ids = $DB->fetchAll("SELECT id FROM songs WHERE title = ?", array($songtitle));
+			$ids = $DB->fetchAllAssociative("SELECT id FROM songs WHERE title = ?", array($songtitle));
 			if(isset($ids[0]['id'])){
 				var_dump($ids[0]['id']);
 				$data = file_get_contents($path.'/'.$file);
@@ -272,7 +277,7 @@ $app->get('/import/notespdf', function (Request $request, Response $response, $a
 			$songtitle = str_replace('_0001','',$songtitle);
 			$songtitle = normalizer_normalize($songtitle);
 			//var_dump($songtitle);
-			$ids = $DB->fetchAll("SELECT id FROM songs WHERE title = ?", array($songtitle));
+			$ids = $DB->fetchAllAssociative("SELECT id FROM songs WHERE title = ?", array($songtitle));
 			if(isset($ids[0]['id'])){
 				var_dump($ids[0]['id']);
 				$imported_ids[] = $ids[0]['id'];
@@ -292,7 +297,7 @@ $app->get('/import/notespdf', function (Request $request, Response $response, $a
 	var_dump("Errors: $count_err");
 
 	var_dump("Not imported:");
-	$not_imported = $DB->fetchAll("SELECT * FROM songs WHERE id NOT IN (".implode(',', $imported_ids).")");
+	$not_imported = $DB->fetchAllAssociative("SELECT * FROM songs WHERE id NOT IN (".implode(',', $imported_ids).")");
 	foreach ($not_imported as $song) {
 		var_dump($song['id'] . ' - ' . $song['title']);
 	}
@@ -312,7 +317,7 @@ $app->get('/import/png', function (Request $request, Response $response, $args) 
 			$songtitle = substr($file, 0, -4);
 			$songtitle = str_replace('_0001','',$songtitle);
 			//var_dump($songtitle);
-			$ids = $DB->fetchAll("SELECT id FROM songs WHERE title = ?", array($songtitle));
+			$ids = $DB->fetchAllAssociative("SELECT id FROM songs WHERE title = ?", array($songtitle));
 			if(isset($ids[0]['id'])){
 				var_dump($ids[0]['id']);
 				$second_file = str_replace('_0001','_0002',$file);
@@ -360,7 +365,7 @@ $app->get('/export/listchords', function (Request $request, Response $response, 
 	$response = $response->withHeader('Content-type', 'text/html');
 	$chords = [];
 
-	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 = 1");
+	$songs = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 = 1");
 
 	foreach($songs as $song_id){
 		$model = new Song($song_id['id']);
@@ -393,7 +398,7 @@ $app->get('/export/index', function (Request $request, Response $response, $args
 // export xml index for indesign
 $app->get('/export/indesign.xml', function (Request $request, Response $response, $args) use (&$DB) {
 	$xml = '';
-	$songs = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
+	$songs = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
 
 	foreach($songs as $song_id) {
 		$song = new Song($song_id['id']);
@@ -418,7 +423,7 @@ $app->get('/export/indesign.zip', function (Request $request, Response $response
 	# create a new zipstream object
 	$zip = new ZipStream\ZipStream('rondo_indesign_'.date('Y-m-d').'.zip');
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
+	$songIds = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
 
 	foreach($songIds as $songId){
 		$song = new Song($songId['id']);
@@ -551,7 +556,7 @@ $app->get('/export/bookindex.csv', function (Request $request, Response $respons
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
 	$sortable = [];
-	$songs = $DB->fetchAll("SELECT title, alternativeTitles, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024 FROM songs WHERE releaseBook2024 = 1");
+	$songs = $DB->fetchAllAssociative("SELECT title, alternativeTitles, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024 FROM songs WHERE releaseBook2024 = 1");
 
 	foreach ($songs as $song) {
 
@@ -589,7 +594,7 @@ $app->get('/export/songs.csv', function (Request $request, Response $response, $
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
+	$songs = $DB->fetchAllAssociative("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, youtubeLink FROM songs ORDER BY title ASC");
 
 	$response = $response->withHeader('Content-Disposition', 'attachment; filename=songs.csv');
 	$response = $response->withHeader('Content-Type', 'text/csv');
@@ -615,7 +620,7 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAll("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
+	$songs = $DB->fetchAllAssociative("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
 	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo mova","Seite Rondo 2024","App (bis 2022)","App (ab 2022)","App (ab 2024)","Buch 2017","Buch mova","Buch 2024","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Copyright Status Buch 2024","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
 
 	$data = [];
@@ -657,7 +662,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 		echo $msg.'<br>';
 	}
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 = 1 order by title ASC");
+	$songIds = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 = 1 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
@@ -740,7 +745,7 @@ $app->get('/validate2022', function (Request $request, Response $response, $args
 		$errors[$category][] = [$data, $msg];
 	};
 
-	$songIds = $DB->fetchAll("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 order by title ASC");
+	$songIds = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2021 = 1 or releaseApp2022 order by title ASC");
 	foreach ($songIds as $songId) {
 		$song = new Song($songId['id']);
 		$data = $song->getData();
