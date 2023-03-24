@@ -1,11 +1,6 @@
 <?php
 /** @noinspection SqlResolve */
 
-@trigger_error(
-    'QuantumDefraculator::__invoke() is deprecated.',
-    E_USER_DEPRECATED
-);
-
 require '../../vendor/autoload.php';
 
 require '_conf.php';
