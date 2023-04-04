@@ -10,7 +10,7 @@ class Song
 		$this->DB = $GLOBALS['DB'];
 		if (!is_null($id)){
 			$this->id = $id;
-			$this->data = $this->DB->fetchAssoc("SELECT * FROM songs WHERE id = ?", array($id));
+			$this->data = $this->DB->fetchAssociative("SELECT * FROM songs WHERE id = ?", array($id));
 		} else {
 			$this->data = array();
 		}

@@ -9,7 +9,7 @@ class SongIndex {
 	}
 
 	public function getSongIndex(){
-		$songs = $this->DB->fetchAll("SELECT 
+		$songs = $this->DB->fetchAllAssociative("SELECT 
 				 id, title, interpret, license, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024,
 				 (rawImage IS NOT NULL) AS hasImage,
 				 (rawSIB IS NOT NULL) AS hasSIB,
@@ -21,7 +21,7 @@ class SongIndex {
 	}
 
 	public function getAppSongIds() {
-		return $this->DB->fetchAll("SELECT id
+		return $this->DB->fetchAllAssociative("SELECT id
 			FROM songs
 			WHERE releaseApp2024 = 1
 			ORDER BY cast(pageRondo2017 as unsigned) ASC");
