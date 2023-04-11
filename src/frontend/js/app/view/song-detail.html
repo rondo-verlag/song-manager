@@ -14,40 +14,57 @@
               <h1>{{song.title}}&nbsp; <status status="song.status" style="font-size: 14px"></status></h1>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="inputTitle" class="col-sm-3 control-label">Titel</label>
+          <div class="row has-feedback">
+            <label for="inputTitle" class="col-md-3 form-label">Titel</label>
 
-            <div class="col-sm-9">
-              <input type="text" ng-model="song.title" class="form-control" id="inputTitle" placeholder="Titel">
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <input type="text" ng-model="song.title" class="form-control" id="inputTitle" placeholder="Titel" />
+              </div>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="alternativeTitles" class="col-sm-3 control-label">Weitere Titel</label>
-            <div class="col-sm-9">
-              <textarea id="alternativeTitles" class="form-control" rows="2" ng-model="song.alternativeTitles"></textarea>
+          <div class="row has-feedback">
+            <label for="alternativeTitles" class="col-md-3 form-label">Weitere Titel</label>
+
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <textarea id="alternativeTitles" class="form-control" rows="2" ng-model="song.alternativeTitles"></textarea>
+              </div>
+
               <span class="small">
                 Alternative Titel unter denen das Lied im Inhaltsverzeichnis aufgelistet wird - die nicht fett gedruckten Titel. z.B. Erste Zeile, Refrain etc.<br>
-                Ein Titel pro Zeile. Erster Buchstabe gross, ansonsten wie Text. Alternative Titel sind optional</span>
+                Ein Titel pro Zeile. Erster Buchstabe gross, ansonsten wie Text. Alternative Titel sind optional
+              </span>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="inputInterpret" class="col-sm-3 control-label">Interpret</label>
+          <div class="mb-3"></div>
 
-            <div class="col-sm-9">
-              <input type="text" ng-model="song.interpret" class="form-control" id="inputInterpret">
+          <div class="row has-feedback">
+            <label for="inputInterpret" class="col-md-3 form-label">Interpret</label>
+
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <input type="text" ng-model="song.interpret" class="form-control" id="inputInterpret">
+              </div>
+
               <span class="small">
                 Bandname oder Künstler, damit in der App danach gesucht werden kann.
               </span>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="text" class="col-sm-3 control-label">Text</label>
+          <div class="mb-3"></div>
 
-            <div class="col-sm-9">
-              <textarea id="text" class="form-control" rows="20" ng-model="song.text"></textarea>
+          <div class="row has-feedback">
+            <label for="text" class="col-md-3 form-label">Text</label>
+
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <textarea id="text" class="form-control" rows="20" ng-model="song.text"></textarea>
+              </div>
+
               <span class="small">
                 Moll-Akkorde in deutscher Notation (z.B. "Hm" und nicht "h")<br>
                 Strophen nicht nummerieren<br>
@@ -56,35 +73,39 @@
             </div>
           </div>
 
-          <div class="mb-3">
-            <div class="col-sm-offset-3 col-sm-9">
-              <button type="submit" class="btn btn-success" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+          <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+
+          <div class="mb-3"></div>
+
+          <div class="row has-feedback">
+            <label for="inputLang" class="col-md-3 form-label">Sprache</label>
+
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <select ng-model="song.lang" class="form-control" id="inputLang" ng-options="value.id as value.value for value in langOptions">
+                  <option value=""></option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="inputLang" class="col-sm-3 control-label">Sprache</label>
+          <div class="row has-feedback">
+            <label for="inputMood" class="col-md-3 form-label">Stimmung</label>
 
-            <div class="col-sm-4">
-              <select ng-model="song.lang" class="form-control" id="inputLang" ng-options="value.id as value.value for value in langOptions">
-                <option value=""></option>
-              </select>
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <input type="text" ng-model="song.mood" class="form-control" id="inputMood">
+              </div>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="inputMood" class="col-sm-3 control-label">Stimmung</label>
+          <div class="row has-feedback">
+            <label for="inputYoutube" class="col-md-3 form-label">Youtube Link</label>
 
-            <div class="col-sm-4">
-              <input type="text" ng-model="song.mood" class="form-control" id="inputMood">
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="inputYoutube" class="col-sm-3 control-label">Youtube Link</label>
-
-            <div class="col-sm-7">
-              <input type="text" ng-model="song.youtubeLink" class="form-control" id="inputYoutube">
+            <div class="col-md-9">
+              <div class="input-group mb-3">
+                <input type="text" ng-model="song.youtubeLink" class="form-control" id="inputYoutube">
+              </div>
               <span class="small">
                 Zum Anhören wie das Lied klingt. Link im Format: <i>https://www.youtube.com/watch?v=0Fy7opKu46c</i>
               </span>
@@ -94,36 +115,38 @@
             </a>
           </div>
 
-          <div class="mb-3 rondo-page-numbers">
+          <div class="mb-3"></div>
+
+          <div class="row mb-3 rondo-page-numbers">
             <label class="col-sm-3 control-label">Seitenzahlen</label>
 
             <div class="col-sm-1">
-              <span class="label label-danger">Rot</span>
+              <span class="badge bg-danger">Rot</span>
               <input type="text" ng-model="song.pageRondoRed" class="form-control" placeholder="Seite">
             </div>
             <div class="col-sm-1">
-              <span class="label label-primary">Blau</span>
+              <span class="badge bg-primary">Blau</span>
               <input type="text" ng-model="song.pageRondoBlue" class="form-control" placeholder="Seite">
             </div>
             <div class="col-sm-1">
-              <span class="label label-success" style="background: #99FF99;">Grün</span>
+              <span class="badge" style="background: #99FF99; color: black">Grün</span>
               <input type="text" ng-model="song.pageRondoGreen" class="form-control" placeholder="Seite">
             </div>
             <div class="col-sm-1">
-              <span class="label label-success" style="background: orange;">2017</span>
+              <span class="badge" style="background: orange;">2017</span>
               <input type="text" ng-model="song.pageRondo2017" class="form-control" placeholder="Seite">
             </div>
             <div class="col-sm-1">
-              <span class="label label-success" style="background: #fbeb00; color: #d23700;">mova</span>
+              <span class="badge" style="background: #fbeb00; color: #d23700;">mova</span>
               <input type="text" ng-model="song.pageRondo2021" class="form-control" placeholder="Seite">
             </div>
             <div class="col-sm-1">
-              <span class="label label-success" style="background: #52009b; color: #ffffff;">2024</span>
+              <span class="badge" style="background: #52009b; color: #ffffff;">2024</span>
               <input type="text" ng-model="song.pageRondo2024" class="form-control" placeholder="Seite">
             </div>
           </div>
 
-          <div class="mb-3">
+          <div class="row mb-3">
             <label class="col-sm-3 control-label">Auflagen</label>
             <div class="col-sm-9">
               <div class="row" style="padding-top: 6px">
@@ -150,32 +173,36 @@
           </div>
 
 
-          <div class="mb-3">
-            <label for="status" class="col-sm-3 control-label">Status</label>
+          <div class="row has-feedback">
+            <label for="status" class="col-md-3 form-label">Status</label>
 
-            <div class="col-sm-9 form-inline">
-              <select ng-model="song.status" id="status" class="form-control">
-                <option value="NEW">Neu</option>
-                <option value="INPROGRESS">In Arbeit</option>
-                <option value="DONE">Fertig</option>
-              </select>
+            <div class="col-md-9">
+              <div class="input-group">
+                <select ng-model="song.status" id="status" class="form-control">
+                  <option value="NEW">Neu</option>
+                  <option value="INPROGRESS">In Arbeit</option>
+                  <option value="DONE">Fertig</option>
+                </select>
+              </div>
               <status status="song.status"></status>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="comments" class="col-sm-3 control-label">Kommentar zum Status</label>
+          <div class="mb-3"></div>
 
-            <div class="col-sm-9">
-              <textarea id="comments" class="form-control" rows="7" ng-model="song.comments"></textarea>
+          <div class="row has-feedback">
+            <label for="comments" class="col-md-3 form-label">Kommentar zum Status</label>
+
+            <div class="col-md-9">
+              <div class="input-group">
+                <textarea id="comments" class="form-control" rows="7" ng-model="song.comments"></textarea>
+              </div>
             </div>
           </div>
 
-          <div class="mb-3">
-            <div class="col-sm-offset-3 col-sm-9">
-              <button type="submit" class="btn btn-success" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
-            </div>
-          </div>
+          <div class="mb-3"></div>
+
+          <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
 
           <!--
           <div class="mb-3">
@@ -200,23 +227,26 @@
           </div>
           <hr style="margin-top: 0px">
 
-          <div class="mb-3">
-            <label for="license" class="col-sm-3 control-label">Lizenz</label>
+          <div class="row has-feedback">
+            <label for="license" class="col-md-3 form-label">Lizenz</label>
 
-            <div class="col-sm-9 form-inline">
-              <select ng-model="song.license" id="license" class="form-control">
-                <option value="UNKNOWN">Unbekannt</option>
-                <option value="LICENSED">Lizenziert</option>
-                <option value="FREE">Frei</option>
-              </select>
+            <div class="col-md-9">
+              <div class="input-group">
+                <select ng-model="song.license" id="license" class="form-control">
+                  <option value="UNKNOWN">Unbekannt</option>
+                  <option value="LICENSED">Lizenziert</option>
+                  <option value="FREE">Frei</option>
+                </select>
+              </div>
+
               <license license="song.license"></license>
             </div>
           </div>
 
           <div ng-if="song.license == 'LICENSED'">
+            <div class="mb-3"></div>
 
-
-            <div class="mb-3" ng-if="song.license == 'LICENSED'">
+            <div class="row" ng-if="song.license == 'LICENSED'">
               <label for="license" class="col-sm-3 control-label">Lizenz-Typ</label>
 
               <div class="col-sm-9 form-inline">
@@ -230,8 +260,9 @@
               </div>
             </div>
 
+            <div class="mb-3"></div>
 
-            <div class="mb-3">
+            <div class="row">
               <label for="copyrightInfoApp" class="col-sm-3 control-label">Copyright Text App</label>
 
               <div class="col-sm-9">
@@ -239,7 +270,9 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3"></div>
+
+            <div class="row">
               <label for="copyrightInfoBook" class="col-sm-3 control-label">Copyright Text Buch</label>
 
               <div class="col-sm-9">
@@ -247,7 +280,9 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3"></div>
+
+            <div class="row">
               <label for="copyrightContact" class="col-sm-3 control-label">Halter / Kontakt</label>
 
               <div class="col-sm-9">
@@ -255,8 +290,10 @@
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="copyrightStatusApp" class="col-sm-3 control-label">Copyright Status App</label>
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label for="copyrightStatusApp" class="col-md-3 form-label">Copyright Status App</label>
 
               <div class="col-sm-9 form-inline">
                 <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-control">
@@ -269,14 +306,19 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3"></div>
+
+            <div class="row">
               <label class="col-sm-3 control-label">Copyright Status Buch 2017</label>
 
               <div class="col-sm-9" style="padding-top: 6px">
                 <status status="song.copyrightStatusBook2017"></status>
               </div>
             </div>
-            <div class="mb-3">
+
+            <div class="mb-3"></div>
+
+            <div class="row">
               <label class="col-sm-3 control-label">Copyright Status Buch 2021</label>
 
               <div class="col-sm-9" style="padding-top: 6px">
@@ -284,7 +326,9 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3"></div>
+
+            <div class="row">
               <label for="copyrightStatusBook2024" class="col-sm-3 control-label">Copyright Status Buch 2024</label>
 
               <div class="col-sm-9 form-inline">
@@ -299,17 +343,15 @@
             </div>
           </div>
 
-          <div class="mb-3">
-            <div class="col-sm-offset-3 col-sm-9">
-              <button type="submit" class="btn btn-success" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
-              <button type="submit" class="btn btn-default" ng-click="showList()">&laquo; zur Liste</button>
-            </div>
-          </div>
+          <div class="mb-3"></div>
+
+          <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+          <a href="#/songs">&laquo; zurück zur Liste</a>
         </form>
 
       </div>
       <div class="col-sm-4">
-        <br>
+        <br />
         <h4>Vorschau</h4>
 
         <div class="preview" ng-class="{ 'rondo-show-chords': showAccords }">
@@ -319,8 +361,8 @@
           <input type="checkbox" ng-model="showAccords"> Akkorde anzeigen
         </label>
 
-        <br>
-        <br>
+        <br />
+        <br />
 
         <h4>Sibelius Screenshot</h4>
         <br>
