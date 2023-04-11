@@ -14,21 +14,26 @@
               <h1>{{song.title}}&nbsp; <status status="song.status" style="font-size: 14px"></status></h1>
             </div>
           </div>
+
+          <div class="mb-3"></div>
+
           <div class="row has-feedback">
             <label for="inputTitle" class="col-md-3 form-label">Titel</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <input type="text" ng-model="song.title" class="form-control" id="inputTitle" placeholder="Titel" />
               </div>
             </div>
           </div>
 
+          <div class="mb-3"></div>
+
           <div class="row has-feedback">
             <label for="alternativeTitles" class="col-md-3 form-label">Weitere Titel</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <textarea id="alternativeTitles" class="form-control" rows="2" ng-model="song.alternativeTitles"></textarea>
               </div>
 
@@ -45,7 +50,7 @@
             <label for="inputInterpret" class="col-md-3 form-label">Interpret</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <input type="text" ng-model="song.interpret" class="form-control" id="inputInterpret">
               </div>
 
@@ -61,7 +66,7 @@
             <label for="text" class="col-md-3 form-label">Text</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <textarea id="text" class="form-control" rows="20" ng-model="song.text"></textarea>
               </div>
 
@@ -73,6 +78,8 @@
             </div>
           </div>
 
+          <div class="mb-3"></div>
+
           <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
 
           <div class="mb-3"></div>
@@ -81,7 +88,7 @@
             <label for="inputLang" class="col-md-3 form-label">Sprache</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <select ng-model="song.lang" class="form-control" id="inputLang" ng-options="value.id as value.value for value in langOptions">
                   <option value=""></option>
                 </select>
@@ -89,21 +96,25 @@
             </div>
           </div>
 
+          <div class="mb-3"></div>
+
           <div class="row has-feedback">
             <label for="inputMood" class="col-md-3 form-label">Stimmung</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <input type="text" ng-model="song.mood" class="form-control" id="inputMood">
               </div>
             </div>
           </div>
 
+          <div class="mb-3"></div>
+
           <div class="row has-feedback">
             <label for="inputYoutube" class="col-md-3 form-label">Youtube Link</label>
 
             <div class="col-md-9">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <input type="text" ng-model="song.youtubeLink" class="form-control" id="inputYoutube">
               </div>
               <span class="small">
@@ -117,7 +128,7 @@
 
           <div class="mb-3"></div>
 
-          <div class="row mb-3 rondo-page-numbers">
+          <div class="row rondo-page-numbers">
             <label class="col-sm-3 control-label">Seitenzahlen</label>
 
             <div class="col-sm-1">
@@ -146,7 +157,9 @@
             </div>
           </div>
 
-          <div class="row mb-3">
+          <div class="mb-3"></div>
+
+          <div class="row">
             <label class="col-sm-3 control-label">Auflagen</label>
             <div class="col-sm-9">
               <div class="row" style="padding-top: 6px">
@@ -172,6 +185,7 @@
             </div>
           </div>
 
+          <div class="mb-3"></div>
 
           <div class="row has-feedback">
             <label for="status" class="col-md-3 form-label">Status</label>
