@@ -2113,11 +2113,6 @@ cookie@0.5.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
   integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
 
-cookie@~0.1.0:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.1.5.tgz#6ab9948a4b1ae21952cd2588530a4722d4044d7c"
-  integrity sha512-/lhu+NGBI5pOLXILS07DrPXYX0QDD/ejVhbwoCUcLPBqMEK9b++f9rUhAlhLkcTz9mV6QSeD+w3cHJ96rMZaFQ==
-
 core-js-compat@^3.25.1:
   version "3.30.1"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.30.1.tgz#961541e22db9c27fc48bfc13a3cafa8734171dfe"
@@ -3087,11 +3082,6 @@ hpack.js@^2.1.6:
     readable-stream "^2.0.1"
     wbuf "^1.1.0"
 
-href@~0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/href/-/href-0.1.1.tgz#9677ec1a2b980a11128e4dfa2f31889b60a40fbf"
-  integrity sha512-EdAKMLOCMciBgK5BuVxpq8I/rKdHTeA+b9WcUl867av3RaXrYKyBh8Js4CB2W8nPGUol/eEyA+Tzs9kLVa+EfQ==
-
 html-entities@^2.3.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.3.3.tgz#117d7626bece327fc8baace8868fa6f5ef856e46"
@@ -3207,11 +3197,6 @@ icss-utils@^5.0.0, icss-utils@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/icss-utils/-/icss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
   integrity sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==
-
-idgen@~1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/idgen/-/idgen-1.3.0.tgz#135d4854a20045cc02cb115bd271d5674143988e"
-  integrity sha512-f9jJCgtN0iaWdWHqn4j6bddjRa0xqtp26XTqAkfRF2NknTqDUdUMeSC5Y0lb3ll0u74+3Ts0HPxbKpmMOJHsMA==
 
 ieee754@^1.1.4:
   version "1.2.1"
@@ -3444,13 +3429,6 @@ json-schema-traverse@^1.0.0:
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz#ae7bcb3656ab77a73ba5c49bf654f38e6b6860e2"
   integrity sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==
 
-json-stable-stringify@~0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/json-stable-stringify/-/json-stable-stringify-0.0.1.tgz#611c23e814db375527df851193db59dd2af27f45"
-  integrity sha512-nKtD/Qxm7tWdZqJoldEC7fF0S41v0mWbeaXG3637stOWfyGxTgWTYE2wtfKmjzpvxv2MA2xzxsXOIiwUpkX6Qw==
-  dependencies:
-    jsonify "~0.0.0"
-
 json5@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.2.tgz#63d98d60f21b313b77c4d6da18bfa69d80e1d593"
@@ -3471,11 +3449,6 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
-
-jsonify@~0.0.0:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.1.tgz#2aa3111dae3d34a0f151c63f3a45d995d9420978"
-  integrity sha512-2/Ki0GcmuqSrgFyelQq9M05y7PS0mEwuIzrf3f1fPqkVDVRvZrPZtVSMHxdgo8Aq0sxAOb/cr2aqqA3LeWHVPg==
 
 junk@^3.1.0:
   version "3.1.0"
@@ -3798,13 +3771,6 @@ minimist@^1.2.0:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
-
-modeler@~0.4.1:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/modeler/-/modeler-0.4.7.tgz#4ff22971509f8160d23372b4864c82b895cc1ebc"
-  integrity sha512-kn2m1RDTDBvGFotJn/Yn0FZBSmZ6vmi5bUzfr++7nvLZN3hvAmuvoGvyoHMOQPnAmflezT1S/4UGz3UH7eHVQw==
-  dependencies:
-    idgen "~1.3.0"
 
 ms@2.0.0:
   version "2.0.0"
@@ -4825,17 +4791,6 @@ serve-static@1.15.0:
     parseurl "~1.3.3"
     send "0.18.0"
 
-sess@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/sess/-/sess-0.1.4.tgz#1d840453860ce57398bf86b13dea82e1ac311985"
-  integrity sha512-0YgPwyeNgbXR2LowDieiLdTfldpU7Gs7QWHWCIUL3sloWYUfeZYUTVkqd/3iHdx3QWm3Fqg7WOz9+9YPF2p+yQ==
-  dependencies:
-    cookie "~0.1.0"
-    href "~0.1.1"
-    idgen "~1.3.0"
-    modeler "~0.4.1"
-    sig "~1.0.0"
-
 setimmediate@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
@@ -4896,13 +4851,6 @@ side-channel@^1.0.4:
     call-bind "^1.0.0"
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
-
-sig@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sig/-/sig-1.0.0.tgz#8843f2ed59e0b5eee656d19ecd13d54a57584b32"
-  integrity sha512-HBQGx5VW7D0Ta4NMpAzLLFqj6ubku5XnHwHyy3SYc2ZxaVWLgCuvUi8YI/W+pPpAABmyPPMQubyQDM/p62OMoA==
-  dependencies:
-    json-stable-stringify "~0.0.1"
 
 sigmund@~1.0.0:
   version "1.0.1"
