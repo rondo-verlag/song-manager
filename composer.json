@@ -14,5 +14,12 @@
         "ext-zip": "*",
         "phpoffice/phpspreadsheet": "^1.22.0",
         "slim/psr7": "^1.6.0"
-    }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
