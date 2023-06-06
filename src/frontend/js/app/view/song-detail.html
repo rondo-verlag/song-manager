@@ -4,21 +4,25 @@
       <div class="col-sm-8">
         <form class="form-horizontal">
           <div class="mb-3">
-            <div class="col-sm-3 col-form-label mt-3">
-              <a href="#/songs/{{prevSongId}}"><button type="button" class="btn btn-secondary"><i class="fa fa-chevron-left"></i></button></a>
-              <a href="#/songs/{{nextSongId}}"><button type="button" class="btn btn-secondary"><i class="fa fa-chevron-right"></i></button></a>
-              <br /><br />
-              <a href="#/songs">&laquo; zurück zur Liste</a>
-            </div>
-            <div class="col-sm-9">
-              <h1>{{song.title}}&nbsp; <status status="song.status" style="font-size: 14px"></status></h1>
+            <div class="row">
+
+              <div class="col-sm-3 col-form-label text-end mt-3">
+                <a href="#/songs/{{prevSongId}}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-chevron-left"></i></button></a>
+                <a href="#/songs/{{nextSongId}}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-chevron-right"></i></button></a>
+                <div class="mt-2">
+                  <a href="#/songs">&laquo; zurück zur Liste</a>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <h1 class="mt-5">{{song.title}}&nbsp; <status status="song.status" style="font-size: 14px"></status></h1>
+              </div>
             </div>
           </div>
 
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputTitle" class="col-md-3 col-form-label">Titel</label>
+            <label for="inputTitle" class="col-md-3 col-form-label text-end">Titel</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -30,7 +34,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="alternativeTitles" class="col-md-3 col-form-label">Weitere Titel</label>
+            <label for="alternativeTitles" class="col-md-3 col-form-label text-end">Weitere Titel</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -47,7 +51,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputInterpret" class="col-md-3 col-form-label">Interpret</label>
+            <label for="inputInterpret" class="col-md-3 col-form-label text-end">Interpret</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -63,7 +67,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="text" class="col-md-3 col-form-label">Text</label>
+            <label for="text" class="col-md-3 col-form-label text-end">Text</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -80,12 +84,16 @@
 
           <div class="mb-3"></div>
 
-          <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+          <div class="row">
+            <div class="col-md-9 offset-md-3">
+              <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+            </div>
+          </div>
 
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputLang" class="col-md-3 col-form-label">Sprache</label>
+            <label for="inputLang" class="col-md-3 col-form-label text-end">Sprache</label>
 
             <div class="col-auto">
               <div class="input-group">
@@ -99,7 +107,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputMood" class="col-md-3 col-form-label">Stimmung</label>
+            <label for="inputMood" class="col-md-3 col-form-label text-end">Stimmung</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -111,7 +119,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputYoutube" class="col-md-3 col-form-label">Youtube Link</label>
+            <label for="inputYoutube" class="col-md-3 col-form-label text-end">Youtube Link</label>
 
             <div class="col-md-7">
               <div class="input-group">
@@ -131,7 +139,7 @@
           <div class="mb-3"></div>
 
           <div class="row rondo-page-numbers">
-            <label class="col-sm-3 col-form-label">Seitenzahlen</label>
+            <label class="col-sm-3 col-form-label text-end">Seitenzahlen</label>
 
             <div class="col-sm-1">
               <span class="badge bg-danger">Rot</span>
@@ -162,7 +170,7 @@
           <div class="mb-3"></div>
 
           <div class="row">
-            <label class="col-sm-3 col-form-label">Auflagen</label>
+            <label class="col-sm-3 col-form-label text-end">Auflagen</label>
             <div class="col-sm-9">
               <div class="row" style="padding-top: 6px">
                 <div class="col-sm-2">
@@ -190,7 +198,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="status" class="col-md-3 col-form-label">Status</label>
+            <label for="status" class="col-md-3 col-form-label text-end">Status</label>
 
             <div class="col-md-9">
               <div class="row g-3">
@@ -201,7 +209,7 @@
                     <option value="DONE">Fertig</option>
                   </select>
                 </div>
-                <div class="col-auto col-form-label">
+                <div class="col-auto col-form-label text-end">
                   <status status="song.status"></status>
                 </div>
               </div>
@@ -211,7 +219,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="comments" class="col-md-3 col-form-label">Kommentar zum Status</label>
+            <label for="comments" class="col-md-3 col-form-label text-end">Kommentar zum Status</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -222,11 +230,15 @@
 
           <div class="mb-3"></div>
 
-          <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+          <div class="row">
+            <div class="col-md-9 offset-md-3">
+              <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+            </div>
+          </div>
 
           <!--
           <div class="mb-3">
-            <label for="inputMusicXMLFile" class="col-sm-3 col-form-label">MusicXML Datei hochladen</label>
+            <label for="inputMusicXMLFile" class="col-sm-3 col-form-label text-end">MusicXML Datei hochladen</label>
 
             <div class="col-sm-3">
               <input type="file" id="inputMusicXMLFile" nv-file-select uploader="uploader"/>
@@ -248,7 +260,7 @@
           <hr style="margin-top: 0px">
 
           <div class="row has-feedback">
-            <label for="license" class="col-md-3 col-form-label">Lizenz</label>
+            <label for="license" class="col-md-3 col-form-label text-end">Lizenz</label>
 
             <div class="col-md-9">
               <div class="row g-3">
@@ -260,7 +272,7 @@
                   </select>
                 </div>
 
-                <div class="col-auto col-form-label">
+                <div class="col-auto col-form-label text-end">
                   <license license="song.license"></license>
                 </div>
               </div>
@@ -271,7 +283,7 @@
             <div class="mb-3"></div>
 
             <div class="row" ng-if="song.license == 'LICENSED'">
-              <label for="license" class="col-sm-3 col-form-label">Lizenz-Typ</label>
+              <label for="license" class="col-sm-3 col-form-label text-end">Lizenz-Typ</label>
 
               <div class="col-sm-9">
                 <div class="row g-3">
@@ -283,7 +295,7 @@
                       <option value="FREE">Gratis</option>
                     </select>
                   </div>
-                  <div class="col-auto col-form-label">
+                  <div class="col-auto col-form-label text-end">
                     <licensetype license="song.license_type"></licensetype>
                   </div>
                 </div>
@@ -293,7 +305,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightInfoApp" class="col-sm-3 col-form-label">Copyright Text App</label>
+              <label for="copyrightInfoApp" class="col-sm-3 col-form-label text-end">Copyright Text App</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightInfoApp" class="form-control" rows="4" ng-model="song.copyrightInfoApp"></textarea>
@@ -303,7 +315,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightInfoBook" class="col-sm-3 col-form-label">Copyright Text Buch</label>
+              <label for="copyrightInfoBook" class="col-sm-3 col-form-label text-end">Copyright Text Buch</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightInfoBook" class="form-control" rows="4" ng-model="song.copyrightInfoBook"></textarea>
@@ -313,7 +325,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightContact" class="col-sm-3 col-form-label">Halter / Kontakt</label>
+              <label for="copyrightContact" class="col-sm-3 col-form-label text-end">Halter / Kontakt</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightContact" class="form-control" rows="8" ng-model="song.copyrightContact"></textarea>
@@ -323,7 +335,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightStatusApp" class="col-md-3 col-form-label">Copyright Status App</label>
+              <label for="copyrightStatusApp" class="col-md-3 col-form-label text-end">Copyright Status App</label>
 
               <div class="col-sm-9">
                 <div class="row g-3">
@@ -335,7 +347,7 @@
                       <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
                     </select>
                   </div>
-                  <div class="col-auto col-form-label">
+                  <div class="col-auto col-form-label text-end">
                     <status status="song.copyrightStatusApp"></status>
                   </div>
                 </div>
@@ -345,7 +357,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label class="col-sm-3 col-form-label">Copyright Status Buch 2017</label>
+              <label class="col-sm-3 col-form-label text-end">Copyright Status Buch 2017</label>
 
               <div class="col-sm-9" style="padding-top: 6px">
                 <status status="song.copyrightStatusBook2017"></status>
@@ -355,7 +367,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label class="col-sm-3 col-form-label">Copyright Status Buch 2021</label>
+              <label class="col-sm-3 col-form-label text-end">Copyright Status Buch 2021</label>
 
               <div class="col-sm-9" style="padding-top: 6px">
                 <status status="song.copyrightStatusBook2021"></status>
@@ -365,7 +377,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightStatusBook2024" class="col-sm-3 col-form-label">Copyright Status Buch 2024</label>
+              <label for="copyrightStatusBook2024" class="col-sm-3 col-form-label text-end">Copyright Status Buch 2024</label>
 
               <div class="col-sm-9">
                 <div class="row g-3">
@@ -377,7 +389,7 @@
                       <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
                     </select>
                   </div>
-                  <div class="col-auto col-form-label">
+                  <div class="col-auto col-form-label text-end">
                     <status status="song.copyrightStatusBook2024"></status>
                   </div>
                 </div>
@@ -387,14 +399,19 @@
 
           <div class="mb-3"></div>
 
-          <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+          <div class="row">
+            <div class="col-md-9 offset-md-3">
+              <button type="submit" class="btn btn-success mt-1 mb-3 col-12" ng-click="save()">Speichern <i ng-show="showSavedIcon" class="fa fa-check-circle"></i></button>
+            </div>
+          </div>
           <a href="#/songs">&laquo; zurück zur Liste</a>
+          <br><br>
         </form>
 
       </div>
       <div class="col-sm-4">
         <br />
-        <h4>Vorschau</h4>
+        <h4 class="mt-5">Vorschau</h4>
 
         <div class="preview" ng-class="{ 'rondo-show-chords': showAccords }">
           <div ng-bind-html="preview"></div>
@@ -415,60 +432,70 @@
         <h4>Dateien hochladen</h4>
 
         <form>
-          <div class="mb-3">
-            <label for="inputImage" class="control-label">Titelbild</label>
-            1242 x 660 px <i>(png, jpg, gif)</i><br>
-            <input type="file" name="file" id="inputImage" onchange="angular.element(this).scope().uploadFile(this.files, 'rawImage')" accept="image/png, image/gif, image/jpeg"/>
-            <div ng-if="song.rawImageSize > 0">
-              <br>
-              <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawImage.png" target="_blank">Download</a>
-              {{song.rawImageSize / 1048576 | number : 2}} MB
+          <div class="card mb-3">
+            <div class="card-body">
+              <label for="inputImage" class="control-label"><b>Titelbild</b></label>
+              1242 x 660 px <i>(png, jpg, gif)</i><br>
+              <input type="file" name="file" id="inputImage" onchange="angular.element(this).scope().uploadFile(this.files, 'rawImage')" accept="image/png, image/gif, image/jpeg"/>
+              <div ng-if="song.rawImageSize > 0">
+                <br>
+                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawImage.png" target="_blank">Download</a>
+                {{song.rawImageSize / 1048576 | number : 2}} MB
+              </div>
+              <div ng-if="song.rawImageSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
-            <div ng-if="song.rawImageSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
           </div>
 
-          <div class="mb-3">
-            <label for="sibeliusFile" class="control-label">Sibelius Datei</label>
-            <input type="file" name="file" id="sibeliusFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawSIB')" accept=".sib"/>
-            <div ng-if="song.rawSIBSize > 0">
-              <br>
-              <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawSIB.sib" target="_blank">Download</a>
-              {{song.rawSIBSize / 1048576 | number : 2}} MB
+          <div class="card mb-3">
+            <div class="card-body">
+              <label for="sibeliusFile" class="control-label"><b>Sibelius Datei</b></label><br>
+              <input type="file" name="file" id="sibeliusFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawSIB')" accept=".sib"/>
+              <div ng-if="song.rawSIBSize > 0">
+                <br>
+                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawSIB.sib" target="_blank">Download</a>
+                {{song.rawSIBSize / 1048576 | number : 2}} MB
+              </div>
+              <div ng-if="song.rawSIBSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
-            <div ng-if="song.rawSIBSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
           </div>
 
-          <div class="mb-3">
-            <label for="notesFile" class="control-label">Noten PDF</label>
-            <input type="file" name="file" id="notesFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawNotesPDF')" accept=".pdf"/>
-            <div ng-if="song.rawNotesPDFSize > 0">
-              <br>
-              <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawNotesPDF.pdf" target="_blank">Download</a>
-              {{song.rawNotesPDFSize / 1048576 | number : 2}} MB
+          <div class="card mb-3">
+            <div class="card-body">
+              <label for="notesFile" class="control-label"><b>Noten PDF</b></label><br>
+              <input type="file" name="file" id="notesFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawNotesPDF')" accept=".pdf"/>
+              <div ng-if="song.rawNotesPDFSize > 0">
+                <br>
+                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawNotesPDF.pdf" target="_blank">Download</a>
+                {{song.rawNotesPDFSize / 1048576 | number : 2}} MB
+              </div>
+              <div ng-if="song.rawNotesPDFSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
-            <div ng-if="song.rawNotesPDFSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
           </div>
 
-          <div class="mb-3">
-            <label for="midiFile" class="control-label">Midi Datei</label>
-            <input type="file" name="file" id="midiFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawMidi')" accept=".mid"/>
-            <div ng-if="song.rawMidiSize > 0">
-              <br>
-              <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawMidi.mid" target="_blank">Download</a>
-              {{song.rawMidiSize / 1048576 | number : 2}} MB
+          <div class="card mb-3">
+            <div class="card-body">
+              <label for="midiFile" class="control-label"><b>Midi Datei</b></label><br>
+              <input type="file" name="file" id="midiFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawMidi')" accept=".mid"/>
+              <div ng-if="song.rawMidiSize > 0">
+                <br>
+                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawMidi.mid" target="_blank">Download</a>
+                {{song.rawMidiSize / 1048576 | number : 2}} MB
+              </div>
+              <div ng-if="song.rawMidiSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
-            <div ng-if="song.rawMidiSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
           </div>
 
-          <div class="mb-3">
-            <label for="copyrightFile" class="control-label">Copyright Vertrag</label>
-            <input type="file" name="file" id="copyrightFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawCopyrightPDF')"/>
-            <div ng-if="song.rawCopyrightPDFSize > 0">
-              <br>
-              <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawCopyrightPDF.pdf" target="_blank">Download</a>
-              {{song.rawCopyrightPDFSize / 1048576 | number : 2}} MB
+          <div class="card mb-3">
+            <div class="card-body">
+              <label for="copyrightFile" class="control-label"><b>Copyright Vertrag</b></label><br>
+              <input type="file" name="file" id="copyrightFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawCopyrightPDF')"/>
+              <div ng-if="song.rawCopyrightPDFSize > 0">
+                <br>
+                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawCopyrightPDF.pdf" target="_blank">Download</a>
+                {{song.rawCopyrightPDFSize / 1048576 | number : 2}} MB
+              </div>
+              <div ng-if="song.rawCopyrightPDFSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
-            <div ng-if="song.rawCopyrightPDFSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
           </div>
         </form>
 
