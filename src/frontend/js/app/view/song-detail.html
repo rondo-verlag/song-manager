@@ -87,7 +87,7 @@
           <div class="row has-feedback">
             <label for="inputLang" class="col-md-3 col-form-label">Sprache</label>
 
-            <div class="col-md-9">
+            <div class="col-auto">
               <div class="input-group">
                 <select ng-model="song.lang" class="form-select" id="inputLang" ng-options="value.id as value.value for value in langOptions">
                   <option value=""></option>
@@ -193,14 +193,18 @@
             <label for="status" class="col-md-3 col-form-label">Status</label>
 
             <div class="col-md-9">
-              <div class="input-group">
-                <select ng-model="song.status" id="status" class="form-select">
-                  <option value="NEW">Neu</option>
-                  <option value="INPROGRESS">In Arbeit</option>
-                  <option value="DONE">Fertig</option>
-                </select>
+              <div class="row g-3">
+                <div class="col-auto">
+                  <select ng-model="song.status" id="status" class="form-select">
+                    <option value="NEW">Neu</option>
+                    <option value="INPROGRESS">In Arbeit</option>
+                    <option value="DONE">Fertig</option>
+                  </select>
+                </div>
+                <div class="col-auto col-form-label">
+                  <status status="song.status"></status>
+                </div>
               </div>
-              <status status="song.status"></status>
             </div>
           </div>
 
@@ -247,15 +251,19 @@
             <label for="license" class="col-md-3 col-form-label">Lizenz</label>
 
             <div class="col-md-9">
-              <div class="input-group">
-                <select ng-model="song.license" id="license" class="form-select">
-                  <option value="UNKNOWN">Unbekannt</option>
-                  <option value="LICENSED">Lizenziert</option>
-                  <option value="FREE">Frei</option>
-                </select>
-              </div>
+              <div class="row g-3">
+                <div class="col-auto">
+                  <select ng-model="song.license" id="license" class="form-select">
+                    <option value="UNKNOWN">Unbekannt</option>
+                    <option value="LICENSED">Lizenziert</option>
+                    <option value="FREE">Frei</option>
+                  </select>
+                </div>
 
-              <license license="song.license"></license>
+                <div class="col-auto col-form-label">
+                  <license license="song.license"></license>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -265,14 +273,20 @@
             <div class="row" ng-if="song.license == 'LICENSED'">
               <label for="license" class="col-sm-3 col-form-label">Lizenz-Typ</label>
 
-              <div class="col-sm-9 form-inline">
-                <select ng-model="song.license_type" id="license-type" class="form-select">
-                  <option value="UNKNOWN">Unbekannt</option>
-                  <option value="ONE_TIME">Einmalig</option>
-                  <option value="ANNUAL">Jährlich</option>
-                  <option value="FREE">Gratis</option>
-                </select>
-                <licensetype license="song.license_type"></licensetype>
+              <div class="col-sm-9">
+                <div class="row g-3">
+                  <div class="col-auto">
+                    <select ng-model="song.license_type" id="license-type" class="form-select">
+                      <option value="UNKNOWN">Unbekannt</option>
+                      <option value="ONE_TIME">Einmalig</option>
+                      <option value="ANNUAL">Jährlich</option>
+                      <option value="FREE">Gratis</option>
+                    </select>
+                  </div>
+                  <div class="col-auto col-form-label">
+                    <licensetype license="song.license_type"></licensetype>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -311,14 +325,20 @@
             <div class="row">
               <label for="copyrightStatusApp" class="col-md-3 col-form-label">Copyright Status App</label>
 
-              <div class="col-sm-9 form-inline">
-                <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-select">
-                  <option value="NEW">Neu</option>
-                  <option value="INPROGRESS">In Arbeit</option>
-                  <option value="DONE">Fertig</option>
-                  <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
-                </select>
-                <status status="song.copyrightStatusApp"></status>
+              <div class="col-sm-9">
+                <div class="row g-3">
+                  <div class="col-auto">
+                    <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-select">
+                      <option value="NEW">Neu</option>
+                      <option value="INPROGRESS">In Arbeit</option>
+                      <option value="DONE">Fertig</option>
+                      <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
+                    </select>
+                  </div>
+                  <div class="col-auto col-form-label">
+                    <status status="song.copyrightStatusApp"></status>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -347,14 +367,20 @@
             <div class="row">
               <label for="copyrightStatusBook2024" class="col-sm-3 col-form-label">Copyright Status Buch 2024</label>
 
-              <div class="col-sm-9 form-inline">
-                <select ng-model="song.copyrightStatusBook2024" id="copyrightStatusBook2024" class="form-select">
-                  <option value="NEW">Neu</option>
-                  <option value="INPROGRESS">In Arbeit</option>
-                  <option value="DONE">Fertig</option>
-                  <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
-                </select>
-                <status status="song.copyrightStatusBook2024"></status>
+              <div class="col-sm-9">
+                <div class="row g-3">
+                  <div class="col-auto">
+                    <select ng-model="song.copyrightStatusBook2024" id="copyrightStatusBook2024" class="form-select">
+                      <option value="NEW">Neu</option>
+                      <option value="INPROGRESS">In Arbeit</option>
+                      <option value="DONE">Fertig</option>
+                      <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
+                    </select>
+                  </div>
+                  <div class="col-auto col-form-label">
+                    <status status="song.copyrightStatusBook2024"></status>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
