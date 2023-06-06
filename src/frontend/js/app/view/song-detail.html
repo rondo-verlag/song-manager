@@ -4,7 +4,7 @@
       <div class="col-sm-8">
         <form class="form-horizontal">
           <div class="mb-3">
-            <div class="col-sm-3 control-label mt-3">
+            <div class="col-sm-3 col-form-label mt-3">
               <a href="#/songs/{{prevSongId}}"><button type="button" class="btn btn-secondary"><i class="fa fa-chevron-left"></i></button></a>
               <a href="#/songs/{{nextSongId}}"><button type="button" class="btn btn-secondary"><i class="fa fa-chevron-right"></i></button></a>
               <br /><br />
@@ -18,7 +18,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputTitle" class="col-md-3 form-label">Titel</label>
+            <label for="inputTitle" class="col-md-3 col-form-label">Titel</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -30,7 +30,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="alternativeTitles" class="col-md-3 form-label">Weitere Titel</label>
+            <label for="alternativeTitles" class="col-md-3 col-form-label">Weitere Titel</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -47,7 +47,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputInterpret" class="col-md-3 form-label">Interpret</label>
+            <label for="inputInterpret" class="col-md-3 col-form-label">Interpret</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -63,7 +63,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="text" class="col-md-3 form-label">Text</label>
+            <label for="text" class="col-md-3 col-form-label">Text</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -85,7 +85,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputLang" class="col-md-3 form-label">Sprache</label>
+            <label for="inputLang" class="col-md-3 col-form-label">Sprache</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -99,7 +99,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputMood" class="col-md-3 form-label">Stimmung</label>
+            <label for="inputMood" class="col-md-3 col-form-label">Stimmung</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -111,9 +111,9 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="inputYoutube" class="col-md-3 form-label">Youtube Link</label>
+            <label for="inputYoutube" class="col-md-3 col-form-label">Youtube Link</label>
 
-            <div class="col-md-9">
+            <div class="col-md-7">
               <div class="input-group">
                 <input type="text" ng-model="song.youtubeLink" class="form-control" id="inputYoutube">
               </div>
@@ -121,15 +121,17 @@
                 Zum Anhören wie das Lied klingt. Link im Format: <i>https://www.youtube.com/watch?v=0Fy7opKu46c</i>
               </span>
             </div>
-            <a ng-href="{{song.youtubeLink}}" ng-if="youtubeVideoId" target="_blank">
-              <img ng-src="https://img.youtube.com/vi/{{youtubeVideoId}}/default.jpg" height="52">
-            </a>
+            <div class="col-md-2">
+              <a ng-href="{{song.youtubeLink}}" ng-if="youtubeVideoId" target="_blank">
+                <img ng-src="https://img.youtube.com/vi/{{youtubeVideoId}}/default.jpg" height="52">
+              </a>
+            </div>
           </div>
 
           <div class="mb-3"></div>
 
           <div class="row rondo-page-numbers">
-            <label class="col-sm-3 control-label">Seitenzahlen</label>
+            <label class="col-sm-3 col-form-label">Seitenzahlen</label>
 
             <div class="col-sm-1">
               <span class="badge bg-danger">Rot</span>
@@ -160,7 +162,7 @@
           <div class="mb-3"></div>
 
           <div class="row">
-            <label class="col-sm-3 control-label">Auflagen</label>
+            <label class="col-sm-3 col-form-label">Auflagen</label>
             <div class="col-sm-9">
               <div class="row" style="padding-top: 6px">
                 <div class="col-sm-2">
@@ -188,7 +190,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="status" class="col-md-3 form-label">Status</label>
+            <label for="status" class="col-md-3 col-form-label">Status</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -205,7 +207,7 @@
           <div class="mb-3"></div>
 
           <div class="row has-feedback">
-            <label for="comments" class="col-md-3 form-label">Kommentar zum Status</label>
+            <label for="comments" class="col-md-3 col-form-label">Kommentar zum Status</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -220,7 +222,7 @@
 
           <!--
           <div class="mb-3">
-            <label for="inputMusicXMLFile" class="col-sm-3 control-label">MusicXML Datei hochladen</label>
+            <label for="inputMusicXMLFile" class="col-sm-3 col-form-label">MusicXML Datei hochladen</label>
 
             <div class="col-sm-3">
               <input type="file" id="inputMusicXMLFile" nv-file-select uploader="uploader"/>
@@ -242,7 +244,7 @@
           <hr style="margin-top: 0px">
 
           <div class="row has-feedback">
-            <label for="license" class="col-md-3 form-label">Lizenz</label>
+            <label for="license" class="col-md-3 col-form-label">Lizenz</label>
 
             <div class="col-md-9">
               <div class="input-group">
@@ -261,7 +263,7 @@
             <div class="mb-3"></div>
 
             <div class="row" ng-if="song.license == 'LICENSED'">
-              <label for="license" class="col-sm-3 control-label">Lizenz-Typ</label>
+              <label for="license" class="col-sm-3 col-form-label">Lizenz-Typ</label>
 
               <div class="col-sm-9 form-inline">
                 <select ng-model="song.license_type" id="license-type" class="form-select">
@@ -277,7 +279,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightInfoApp" class="col-sm-3 control-label">Copyright Text App</label>
+              <label for="copyrightInfoApp" class="col-sm-3 col-form-label">Copyright Text App</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightInfoApp" class="form-control" rows="4" ng-model="song.copyrightInfoApp"></textarea>
@@ -287,7 +289,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightInfoBook" class="col-sm-3 control-label">Copyright Text Buch</label>
+              <label for="copyrightInfoBook" class="col-sm-3 col-form-label">Copyright Text Buch</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightInfoBook" class="form-control" rows="4" ng-model="song.copyrightInfoBook"></textarea>
@@ -297,7 +299,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightContact" class="col-sm-3 control-label">Halter / Kontakt</label>
+              <label for="copyrightContact" class="col-sm-3 col-form-label">Halter / Kontakt</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightContact" class="form-control" rows="8" ng-model="song.copyrightContact"></textarea>
@@ -307,7 +309,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightStatusApp" class="col-md-3 form-label">Copyright Status App</label>
+              <label for="copyrightStatusApp" class="col-md-3 col-form-label">Copyright Status App</label>
 
               <div class="col-sm-9 form-inline">
                 <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-select">
@@ -323,7 +325,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label class="col-sm-3 control-label">Copyright Status Buch 2017</label>
+              <label class="col-sm-3 col-form-label">Copyright Status Buch 2017</label>
 
               <div class="col-sm-9" style="padding-top: 6px">
                 <status status="song.copyrightStatusBook2017"></status>
@@ -333,7 +335,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label class="col-sm-3 control-label">Copyright Status Buch 2021</label>
+              <label class="col-sm-3 col-form-label">Copyright Status Buch 2021</label>
 
               <div class="col-sm-9" style="padding-top: 6px">
                 <status status="song.copyrightStatusBook2021"></status>
@@ -343,7 +345,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightStatusBook2024" class="col-sm-3 control-label">Copyright Status Buch 2024</label>
+              <label for="copyrightStatusBook2024" class="col-sm-3 col-form-label">Copyright Status Buch 2024</label>
 
               <div class="col-sm-9 form-inline">
                 <select ng-model="song.copyrightStatusBook2024" id="copyrightStatusBook2024" class="form-select">
