@@ -89,7 +89,7 @@
 
             <div class="col-md-9">
               <div class="input-group">
-                <select ng-model="song.lang" class="form-control" id="inputLang" ng-options="value.id as value.value for value in langOptions">
+                <select ng-model="song.lang" class="form-select" id="inputLang" ng-options="value.id as value.value for value in langOptions">
                   <option value=""></option>
                 </select>
               </div>
@@ -192,7 +192,7 @@
 
             <div class="col-md-9">
               <div class="input-group">
-                <select ng-model="song.status" id="status" class="form-control">
+                <select ng-model="song.status" id="status" class="form-select">
                   <option value="NEW">Neu</option>
                   <option value="INPROGRESS">In Arbeit</option>
                   <option value="DONE">Fertig</option>
@@ -246,7 +246,7 @@
 
             <div class="col-md-9">
               <div class="input-group">
-                <select ng-model="song.license" id="license" class="form-control">
+                <select ng-model="song.license" id="license" class="form-select">
                   <option value="UNKNOWN">Unbekannt</option>
                   <option value="LICENSED">Lizenziert</option>
                   <option value="FREE">Frei</option>
@@ -264,7 +264,7 @@
               <label for="license" class="col-sm-3 control-label">Lizenz-Typ</label>
 
               <div class="col-sm-9 form-inline">
-                <select ng-model="song.license_type" id="license-type" class="form-control">
+                <select ng-model="song.license_type" id="license-type" class="form-select">
                   <option value="UNKNOWN">Unbekannt</option>
                   <option value="ONE_TIME">Einmalig</option>
                   <option value="ANNUAL">Jährlich</option>
@@ -310,7 +310,7 @@
               <label for="copyrightStatusApp" class="col-md-3 form-label">Copyright Status App</label>
 
               <div class="col-sm-9 form-inline">
-                <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-control">
+                <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-select">
                   <option value="NEW">Neu</option>
                   <option value="INPROGRESS">In Arbeit</option>
                   <option value="DONE">Fertig</option>
@@ -346,7 +346,7 @@
               <label for="copyrightStatusBook2024" class="col-sm-3 control-label">Copyright Status Buch 2024</label>
 
               <div class="col-sm-9 form-inline">
-                <select ng-model="song.copyrightStatusBook2024" id="copyrightStatusBook2024" class="form-control">
+                <select ng-model="song.copyrightStatusBook2024" id="copyrightStatusBook2024" class="form-select">
                   <option value="NEW">Neu</option>
                   <option value="INPROGRESS">In Arbeit</option>
                   <option value="DONE">Fertig</option>
