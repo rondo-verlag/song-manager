@@ -395,6 +395,31 @@
                 </div>
               </div>
             </div>
+
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label class="col-sm-3 col-form-label text-end"></label>
+
+              <div class="col-sm-9 pb-4">
+                <h5 class="mt-3">Copyright Dateien</h5>
+                <div ng-if="song.files && song.files.length > 0" class="file-list">
+                  <div ng-repeat="file in song.files" class="file-list__file">
+                    <i class="fa fa-file-pdf-o" style="color: #7e7e7e;" ng-if="file.mime === 'application/pdf'"></i>
+                    <i class="fa fa-file-o" style="color: #7e7e7e;" ng-if="file.mime !== 'application/pdf'"></i>
+                    <a href="api/files/{{file.id}}/{{file.name | encodeURIComponent}}" target="_blank" title="Erstellt am {{file.creationTime}}">{{file.name}}</a>
+                    <span class="pull-right">
+                        <a href="" ng-click="deleteFile(file)"><i class="fa fa-trash file-list__file-delete-icon"></i></a>
+                    </span>
+                  </div>
+                </div>
+                <div ng-if="!song.files || song.files.length === 0" class="text-muted mb-2">
+                  Noch keine Dateien hochgeladen
+                </div>
+                <input type="file" name="file" onchange="angular.element(this).scope().uploadGenericFile(this.files, 'copyright')"/>
+              </div>
+
+            </div>
           </div>
 
           <div class="mb-3"></div>

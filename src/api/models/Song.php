@@ -11,6 +11,7 @@ class Song
 		if (!is_null($id)){
 			$this->id = $id;
 			$this->data = $this->DB->fetchAssociative("SELECT * FROM songs WHERE id = ?", array($id));
+			$this->data['files'] = $this->DB->fetchAllAssociative("SELECT id, songId, name, type, mime, filesize, creationTime FROM files WHERE songId = ? AND isDeleted = 0 ORDER BY name", array($id));
 		} else {
 			$this->data = array();
 		}

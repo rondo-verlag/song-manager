@@ -49,6 +49,24 @@
 	top: 1px;
 }
 
+.file-list {
+	margin: 20px 0;
+}
+
+.file-list__file {
+	background: #f5f5f5;
+	padding: 5px 10px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.file-list__file-delete-icon {
+	color: #ddd;
+}
+
+.file-list__file-delete-icon:hover {
+	color: red;
+}
 
 .songtext {
   font-size: 1.3em;

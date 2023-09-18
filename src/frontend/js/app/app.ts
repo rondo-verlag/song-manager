@@ -15,6 +15,7 @@ module rondo {
   RondoApp.controller('SongDetailCtrl', SongDetailCtrl);
   RondoApp.controller('SongListCtrl', SongListCtrl);
   RondoApp.filter("yesno", rondo.filters.yesno);
+  RondoApp.filter("encodeURIComponent", rondo.filters.encodeURIComponent);
   RondoApp.directive("status", rondo.directives.status);
   RondoApp.directive("license", rondo.directives.license);
   RondoApp.directive("licensetype", rondo.directives.licensetype);

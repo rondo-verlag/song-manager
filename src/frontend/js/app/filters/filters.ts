@@ -7,4 +7,9 @@ module rondo.filters {
       return (input == 1 ? 'Ja' : 'Nein');
     }
   }
+  export function encodeURIComponent() {
+    return function(input) {
+      return window.encodeURIComponent(input);
+    }
+  }
 }
