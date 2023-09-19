@@ -38,5 +38,14 @@ module rondo {
     rawNotesPDFSize?: number;
     rawSIBSize?: number;
     rawXMLSize?: number;
+    files?: [{
+      'id': number,
+      'songId': number,
+      'ame': string,
+      'mime': string,
+      'type': 'copyright',
+      'filesize': number,
+      'creationTime': string,
+    }]
   }
 }

@@ -11,6 +11,7 @@ class Song
 		if (!is_null($id)){
 			$this->id = $id;
 			$this->data = $this->DB->fetchAssociative("SELECT * FROM songs WHERE id = ?", array($id));
+			$this->data['files'] = $this->DB->fetchAllAssociative("SELECT id, songId, name, type, mime, filesize, creationTime FROM files WHERE songId = ? AND isDeleted = 0 ORDER BY name", array($id));
 		} else {
 			$this->data = array();
 		}
@@ -46,6 +47,7 @@ class Song
 				unset($this->data[$fieldname]);
 			}
 		}
+		unset($this->data['files']);
 
 		return $this;
 	}
@@ -132,18 +134,18 @@ class Song
 	}
 
 	public function save(){
-		if(is_null($this->id)){
+		unset($this->data['files']);
+		if (is_null($this->id)){
 			$this->DB->insert('songs', $this->data);
 			$this->id = $this->DB->lastInsertId();
-			return $this;
 		} else {
-			// prevent image from beeing reset
+			// prevent image from being reset
 			if (isset($this->data['rawImage']) && !$this->data['rawImage']){
 				unset($this->data['rawImage']);
 			}
 			$this->DB->update('songs', $this->data, array('id' => $this->id));
-			return $this;
 		}
+		return $this;
 	}
 
 	private function startsWithRaw($haystack, $needle = "raw") {

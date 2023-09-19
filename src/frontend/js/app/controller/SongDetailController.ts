@@ -67,21 +67,55 @@ module rondo {
       };
 
       $scope.uploadFile = function(files, type: string) {
-        var fd = new FormData();
-        //Take the first selected file
-        fd.append("file", files[0]);
+        if (files.length > 0) {
+          var fd = new FormData();
+          //Take the first selected file
+          fd.append("file", files[0]);
 
-        $http.post("api/songs/" + $routeParams.songId + "/"+type, fd, {
-          withCredentials: true,
-          headers: {'Content-Type': undefined },
-          transformRequest: angular.identity
-        }).success(function(){
-          self.loadData();
-        }).error(function(){
-          self.loadData();
-        });
-
+          $http.post("api/songs/" + $routeParams.songId + "/" + type, fd, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined},
+            transformRequest: angular.identity
+          }).success(function () {
+            self.loadData();
+          }).error(function () {
+            alert('Datei konnte nicht hochgeladen werden.');
+            self.loadData();
+          });
+        }
       };
+
+      $scope.uploadGenericFile = function(files, type: string) {
+        if (files.length > 0) {
+          var fd = new FormData();
+          //Take the first selected file
+          fd.append("file", files[0]);
+
+          $http.post("api/files?songId=" + $routeParams.songId + "&type="+type, fd, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+          }).success(function(){
+            self.loadData();
+          }).error(function(){
+            alert('Datei konnte nicht hochgeladen werden.');
+            self.loadData();
+          });
+        }
+      };
+
+      $scope.deleteFile = function (file) {
+        if (confirm('Datei '+file.name+' wirklich löschen?')) {
+          $http.delete("api/files/" + file.id)
+            .success(function (data, status, headers, config) {
+              self.loadData();
+            })
+            .error(function (data, status, headers, config) {
+              alert("Datei konnte nicht gelöscht werden.");
+              self.loadData();
+            });
+        }
+      }
 
       $scope.save = function () {
         //console.log($scope.song);

@@ -395,6 +395,32 @@
                 </div>
               </div>
             </div>
+
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label class="col-sm-3 col-form-label text-end"></label>
+
+              <div class="col-sm-9 pb-4">
+                <h5 class="mt-3">Copyright Dateien</h5>
+                <div ng-if="song.files && song.files.length > 0" class="file-list">
+                  <div ng-repeat="file in song.files" class="file-list__file">
+                    <i class="fa fa-file-pdf-o" style="color: #7e7e7e;" ng-if="file.mime === 'application/pdf'"></i>
+                    <i class="fa fa-file-o" style="color: #7e7e7e;" ng-if="file.mime !== 'application/pdf'"></i>
+                    <a href="api/files/{{file.id}}/{{file.name | encodeURIComponent}}" target="_blank">{{file.name}}</a>
+                    <span class="pull-right">
+                      <small class="text-muted" title="Hochgeladen am {{file.creationTime}}">{{file.creationTime ? file.creationTime.slice(0, 10) : ''}}&nbsp;</small>
+                      <a href="" ng-click="deleteFile(file)"><i class="fa fa-trash file-list__file-delete-icon"></i></a>
+                    </span>
+                  </div>
+                </div>
+                <div ng-if="!song.files || song.files.length === 0" class="text-muted mb-2">
+                  Noch keine Dateien hochgeladen
+                </div>
+                <input type="file" name="file" onchange="angular.element(this).scope().uploadGenericFile(this.files, 'copyright')"/>
+              </div>
+
+            </div>
           </div>
 
           <div class="mb-3"></div>
@@ -484,21 +510,6 @@
               <div ng-if="song.rawMidiSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
           </div>
-
-          <div class="card mb-3">
-            <div class="card-body">
-              <label for="copyrightFile" class="control-label"><b>Copyright Vertrag</b></label><br>
-              <input type="file" name="file" id="copyrightFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawCopyrightPDF')"/>
-              <div ng-if="song.rawCopyrightPDFSize > 0">
-                <br>
-                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawCopyrightPDF.pdf" target="_blank">Download</a>
-                {{song.rawCopyrightPDFSize / 1048576 | number : 2}} MB
-              </div>
-              <div ng-if="song.rawCopyrightPDFSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
-            </div>
-          </div>
-        </form>
-
 
       </div>
     </div>

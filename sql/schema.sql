@@ -40,3 +40,16 @@ CREATE TABLE `songs` (
   `rawCopyrightPDF` longblob,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `files` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `songId` int(11) unsigned NOT NULL,
+  `name` varchar(1000) NOT NULL DEFAULT '',
+  `mime` varchar(100) NOT NULL DEFAULT '',
+  `type` enum('copyright') NOT NULL DEFAULT 'copyright',
+  `filesize` int(11) unsigned NOT NULL,
+  `rawData` longblob NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT 0,
+  `creationTime` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;

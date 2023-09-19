@@ -5,6 +5,7 @@ require '../../vendor/autoload.php';
 
 require '_conf.php';
 require 'models/CrdParser.php';
+require 'models/File.php';
 require 'models/Song.php';
 require 'models/SongIndex.php';
 
@@ -143,6 +144,65 @@ $app->post('/songs/{songId}/{rawType}', function (Request $request, Response $re
 	$song->setRawData($rawType, $rawdata);
 	$song->save();
 	return $response;
+});
+
+$app->get('/files/{fileId}', function (Request $request, Response $response, $args) {
+	$fileId = $args['fileId'];
+	$file = new File($fileId);
+	$data = $file->getData();
+	if ($data) {
+		unset($data['rawData']);
+		$response->getBody()->write(json_encode($data, JSON_NUMERIC_CHECK));
+		return $response;
+	} else {
+		header("HTTP/1.0 404 Not Found");
+		die();
+	}
+});
+
+$app->get('/files/{fileId}/{filename}', function (Request $request, Response $response, $args) {
+	$fileId = $args['fileId'];
+	$file = new File($fileId);
+	$data = $file->getData();
+	if ($data) {
+		$response = $response->withHeader('Content-Disposition', 'filename="'.$data['name'].'"')->withHeader('Content-type', $data['mime'] ?: 'application/octet-stream');
+		$response->getBody()->write($data['rawData']);
+		return $response;
+	} else {
+		header("HTTP/1.0 404 Not Found");
+		die();
+	}
+});
+
+$app->post('/files', function (Request $request, Response $response, $args) {
+	$file = new File();
+	if (!isset($_FILES['file'])) {
+		throw new Exception('no file uploaded');
+	}
+	$qsa = $request->getQueryParams();
+	$rawData = file_get_contents($_FILES['file']['tmp_name']);
+	$data = [
+		'songId' => intval($qsa['songId']),
+		'type' => $qsa['type'],
+		'name' => $_FILES['file']['name'],
+		'mime' => $_FILES['file']['type'],
+		'filesize' => $_FILES['file']['size'],
+		'rawData' => $rawData,
+	];
+	$file->setData($data);
+	$file->save();
+	$response->getBody()->write($file->getId());
+	return $response;
+});
+
+$app->delete('/files/{fileId}', function (Request $request, Response $response, $args) {
+	$fileId = $args['fileId'];
+	$file = new File($fileId);
+	if ($file->delete()) {
+		return $response->withStatus(204);
+	} else {
+		throw new Exception('Could not delete file');
+	}
 });
 
 $app->get('/import/xml', function (Request $request, Response $response, $args) {
