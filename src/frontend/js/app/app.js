@@ -167,33 +167,38 @@ var rondo;
                 self.loadData();
             };
             $scope.uploadFile = function (files, type) {
-                var fd = new FormData();
-                //Take the first selected file
-                fd.append("file", files[0]);
-                $http.post("api/songs/" + $routeParams.songId + "/" + type, fd, {
-                    withCredentials: true,
-                    headers: { 'Content-Type': undefined },
-                    transformRequest: angular.identity
-                }).success(function () {
-                    self.loadData();
-                }).error(function () {
-                    self.loadData();
-                });
+                if (files.length > 0) {
+                    var fd = new FormData();
+                    //Take the first selected file
+                    fd.append("file", files[0]);
+                    $http.post("api/songs/" + $routeParams.songId + "/" + type, fd, {
+                        withCredentials: true,
+                        headers: { 'Content-Type': undefined },
+                        transformRequest: angular.identity
+                    }).success(function () {
+                        self.loadData();
+                    }).error(function () {
+                        alert('Datei konnte nicht hochgeladen werden.');
+                        self.loadData();
+                    });
+                }
             };
             $scope.uploadGenericFile = function (files, type) {
-                var fd = new FormData();
-                //Take the first selected file
-                fd.append("file", files[0]);
-                $http.post("api/files?songId=" + $routeParams.songId + "&type=" + type, fd, {
-                    withCredentials: true,
-                    headers: { 'Content-Type': undefined },
-                    transformRequest: angular.identity
-                }).success(function () {
-                    self.loadData();
-                }).error(function () {
-                    alert('Datei konnte nicht hochgeladen werden.');
-                    self.loadData();
-                });
+                if (files.length > 0) {
+                    var fd = new FormData();
+                    //Take the first selected file
+                    fd.append("file", files[0]);
+                    $http.post("api/files?songId=" + $routeParams.songId + "&type=" + type, fd, {
+                        withCredentials: true,
+                        headers: { 'Content-Type': undefined },
+                        transformRequest: angular.identity
+                    }).success(function () {
+                        self.loadData();
+                    }).error(function () {
+                        alert('Datei konnte nicht hochgeladen werden.');
+                        self.loadData();
+                    });
+                }
             };
             $scope.deleteFile = function (file) {
                 if (confirm('Datei ' + file.name + ' wirklich löschen?')) {

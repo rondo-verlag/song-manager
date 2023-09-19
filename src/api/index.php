@@ -150,13 +150,14 @@ $app->get('/files/{fileId}', function (Request $request, Response $response, $ar
 	$fileId = $args['fileId'];
 	$file = new File($fileId);
 	$data = $file->getData();
-	if (!$data) {
+	if ($data) {
+		unset($data['rawData']);
+		$response->getBody()->write(json_encode($data, JSON_NUMERIC_CHECK));
+		return $response;
+	} else {
 		header("HTTP/1.0 404 Not Found");
 		die();
 	}
-	unset($data['rawData']);
-	$response->getBody()->write(json_encode($data, JSON_NUMERIC_CHECK));
-	return $response;
 });
 
 $app->get('/files/{fileId}/{filename}', function (Request $request, Response $response, $args) {
@@ -175,6 +176,9 @@ $app->get('/files/{fileId}/{filename}', function (Request $request, Response $re
 
 $app->post('/files', function (Request $request, Response $response, $args) {
 	$file = new File();
+	if (!isset($_FILES['file'])) {
+		throw new Exception('no file uploaded');
+	}
 	$qsa = $request->getQueryParams();
 	$rawData = file_get_contents($_FILES['file']['tmp_name']);
 	$data = [

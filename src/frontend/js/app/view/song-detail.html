@@ -407,9 +407,10 @@
                   <div ng-repeat="file in song.files" class="file-list__file">
                     <i class="fa fa-file-pdf-o" style="color: #7e7e7e;" ng-if="file.mime === 'application/pdf'"></i>
                     <i class="fa fa-file-o" style="color: #7e7e7e;" ng-if="file.mime !== 'application/pdf'"></i>
-                    <a href="api/files/{{file.id}}/{{file.name | encodeURIComponent}}" target="_blank" title="Erstellt am {{file.creationTime}}">{{file.name}}</a>
+                    <a href="api/files/{{file.id}}/{{file.name | encodeURIComponent}}" target="_blank">{{file.name}}</a>
                     <span class="pull-right">
-                        <a href="" ng-click="deleteFile(file)"><i class="fa fa-trash file-list__file-delete-icon"></i></a>
+                      <small class="text-muted" title="Hochgeladen am {{file.creationTime}}">{{file.creationTime ? file.creationTime.slice(0, 10) : ''}}&nbsp;</small>
+                      <a href="" ng-click="deleteFile(file)"><i class="fa fa-trash file-list__file-delete-icon"></i></a>
                     </span>
                   </div>
                 </div>
