@@ -511,21 +511,6 @@
             </div>
           </div>
 
-          <div class="card mb-3">
-            <div class="card-body">
-              <label for="copyrightFile" class="control-label"><b>Copyright Vertrag</b></label><br>
-              <input type="file" name="file" id="copyrightFile" onchange="angular.element(this).scope().uploadFile(this.files, 'rawCopyrightPDF')"/>
-              <div ng-if="song.rawCopyrightPDFSize > 0">
-                <br>
-                <i class="fa fa-check-circle" style="color: green;"></i> <a href="api/songs/{{song.id}}/raw/rawCopyrightPDF.pdf" target="_blank">Download</a>
-                {{song.rawCopyrightPDFSize / 1048576 | number : 2}} MB
-              </div>
-              <div ng-if="song.rawCopyrightPDFSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
-            </div>
-          </div>
-        </form>
-
-
       </div>
     </div>
 
