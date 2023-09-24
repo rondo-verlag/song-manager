@@ -435,7 +435,7 @@ $app->get('/export/listchords', function (Request $request, Response $response, 
 
 // export json index for app
 $app->get('/export/index', function (Request $request, Response $response, $args) use (&$DB) {
-	$path = '../../../rondo-app/app/src/assets/songdata/songs/song-index.json';
+	$path = '../../../rondo-app/app/public/assets/songdata/songs/song-index.json';
 	$songIndex = new SongIndex();
 	$index = $songIndex->getSongIndexForApp();
 
@@ -506,7 +506,7 @@ $app->get('/export/indesign.zip', function (Request $request, Response $response
 // export html files & images for app
 $app->get('/export/html', function (Request $request, Response $response, $args) use (&$DB) {
 	umask(0);
-	$path = '../../../rondo-app/app/src/assets/songdata/songs/';
+	$path = '../../../rondo-app/app/public/assets/songdata/songs/';
 
 	if (!file_exists($path)) {
 		die('folder does not exist: ' . $path);
@@ -522,7 +522,6 @@ $app->get('/export/html', function (Request $request, Response $response, $args)
 		$html = $song->getHtml(true);
 		$filepath = $path.'html/'.$songId['id'].'.html';
 		file_put_contents($filepath, $html);
-		//chmod($filepath, 0777);
 
 		// generate image
 		$data = $song->getData();
@@ -541,7 +540,22 @@ $app->get('/export/html', function (Request $request, Response $response, $args)
 			} catch (Exception $exception) {
 				var_dump('Image Problem with Song: ' . $songId['id'], $exception->getMessage());
 			}
-			//chmod($imagepath, 0777);
+		}
+
+		// generate pdf
+		if ($data['rawNotesPDF']){
+			$pdfpath = $path.'pdfs/'.$songId['id'].'.pdf';
+			file_put_contents($pdfpath, $data['rawNotesPDF']);
+		} else {
+			echo 'No pdf file for song '.$songId['id'].'<br>';
+		}
+
+		// export midi
+		if ($data['rawMidi']){
+			$midipath = $path.'midi/'.$songId['id'].'.mid';
+			file_put_contents($midipath, $data['rawMidi']);
+		} else {
+			echo 'No midi file for song '.$songId['id'].'<br>';
 		}
 	}
 	echo count($songIds)." Songs exportiert.";
