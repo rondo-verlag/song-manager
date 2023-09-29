@@ -476,7 +476,7 @@ $app->get('/export/indesign.zip', function (Request $request, Response $response
 	$xml = '';
 
 	# create a new zipstream object
-	$zip = new ZipStream\ZipStream('rondo_indesign_'.date('Y-m-d').'.zip');
+	$zip = new ZipStream\ZipStream(outputName: 'rondo_indesign_'.date('Y-m-d').'.zip');
 
 	$songIds = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2024 = 1 ORDER BY pageRondo2024 ASC");
 
@@ -567,7 +567,7 @@ $app->get('/export/zip', function (Request $request, Response $response, $args) 
 	header('Content-Type: application/zip');
 
 	# create a new zipstream object
-	$zip = new ZipStream\ZipStream('rondo_data_'.date('Y-m-d').'.zip');
+	$zip = new ZipStream\ZipStream(outputName: 'rondo_data_'.date('Y-m-d').'.zip');
 
 	$songIndex = new SongIndex();
 	$songIds = $songIndex->getAppSongIds();
