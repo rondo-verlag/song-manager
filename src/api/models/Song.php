@@ -94,8 +94,9 @@ class Song
 
 		$xml  = '<Titel>'.$this->data['title'].PHP_EOL.'</Titel>'.PHP_EOL;
 		$xml .= '<Text>'.$text.'</Text>'.PHP_EOL;
+		$xml .= '<Interpret>'. ($this->data['interpret'] ?: '') .'</Interpret>'.PHP_EOL;
 		$xml .= '<Copy>'.$this->data['copyrightInfoBook'].PHP_EOL.'</Copy>'.PHP_EOL;
-		$xml  = '<Lied AlteSeitennummer="'.$this->data['pageRondoGreen'].'" Titel="'.$this->data['title'].'">'.$xml.'</Lied>';
+		$xml  = '<Lied AlteSeitennummerGruen="'.$this->data['pageRondoGreen'].'" AlteSeitennummerOrange="'.$this->data['pageRondo2017'].'" Titel="'.$this->data['title'].'">'.$xml.'</Lied>';
 		$xml .= '<Noten><img href="pdf/noten_'.$this->data['id'].'.pdf"/></Noten>'.PHP_EOL;
 
 		$xml = str_replace('&','&amp;',$xml);
