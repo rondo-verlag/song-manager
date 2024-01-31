@@ -6,14 +6,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H pfadifotos.ch >> ~/.ssh/known_hosts
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Execute Script via SSH
-        run: ssh -o StrictHostKeyChecking=no pfadifot@pfadifotos.ch "~/deploy_rondo.sh"
+      - name: Deploy Song Manager
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: pfadifotos.ch
+          username: pfadifot
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: ~/deploy_rondo.sh
