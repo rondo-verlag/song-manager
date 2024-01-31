@@ -66,9 +66,9 @@ class SongIndex {
 				'alternative' => false,
 				'free' => $isFree,
 				'license' => ($song['copyrightInfoApp'] ?: ''),
-                'links' => [
-                    'youtube' => $song['youtubeLink'],
-                ],
+				'links' => [
+					'youtube' => $song['youtubeLink'],
+				],
 			];
 
 			// alternative titel
