@@ -1,0 +1,19 @@
+name: Deploy Song Manager
+run-name: ${{ github.actor }} deployed the song-manager
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H [your-server-ip-or-hostname] >> ~/.ssh/known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Execute Script via SSH
+        run: ssh -o StrictHostKeyChecking=no pfadifot@holderegger.org "~/deploy_rondo.sh"
