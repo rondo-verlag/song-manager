@@ -22,13 +22,13 @@ $DB = DriverManager::getConnection($SQL_CREDENTIALS, new \Doctrine\DBAL\Configur
 define ('EOL', PHP_EOL);
 
 const AVAILABLE_CHORDS = [
-	"A","A7","Ab","Absus4-Db","Am","Am6","Am7","Asus2","Asus4",
+	"A","A7","Ab","Absus4-Db","Am","Am6","Am7","As","Asus2","Asus4",
 	"B","Bm","Bm-Ab","Bm-Eb","Bm-Gb",
-	"C","C-G","C-H","C7","Cism","Cm",
-	"D","D-Fis","D7","Db","Dbsus2","Dm","Dm6","Dm7","Dmaj7","Dsus4",
-	"E","E7","E7sus4","Eb","Em","Em6","Em7","Esus4",
+	"C","C-G","C-H","C7","Cism","Cm","Cmaj7",
+	"D","D9","D-Fis","D7","Db","Dbsus2","Ddim","Dm","Dm6","Dm7","Dmaj7","Dsus2","Dsus4",
+	"E","E7","E7sus4","Eb","Em","Em6","Em7","Es","Es7","Esus4",
 	"F","F-bar","F7","Fis","Fis7","Fism","Fism7","Fm",
-	"G","G+","G-H","G7","Gism","Gm","Gsus4",
+	"G","G+","G-H","G7","Gism","Gm","Gm7","Gsus4",
 	"H","H7","H7sus4","Hm","Hm7","Hsus4"
 ];
 
