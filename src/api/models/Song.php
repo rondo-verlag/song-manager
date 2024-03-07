@@ -40,6 +40,7 @@ class Song
 		$this->data['releaseBook2017'] = $this->data['releaseBook2017'] ? 1 : 0;
 		$this->data['releaseBook2021'] = $this->data['releaseBook2021'] ? 1 : 0;
 		$this->data['releaseBook2024'] = $this->data['releaseBook2024'] ? 1 : 0;
+		$this->data['licenseAppUntil'] = $this->data['licenseAppUntil'] ? date('Y-m-d', strtotime($this->data['licenseAppUntil'])) : null;
 
 		// do not set raw data here, use setRawData()
 		foreach($this->data as $fieldname => $val){

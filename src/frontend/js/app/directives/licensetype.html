@@ -8,8 +8,14 @@
   <span ng-switch-when="ANNUAL" style="color: orange;">
     <i class="fa fa-repeat"></i> Jährlich
   </span>
+  <span ng-switch-when="PRO_RATA_50" style="color: orange;">
+    <i class="fa fa-repeat"></i> Pro Rata 50%
+  </span>
   <span ng-switch-when="FREE" style="color: green;">
     <i class="fa fa-gift"></i> Gratis
+  </span>
+  <span ng-switch-when="OTHER" style="color: #000069;">
+    <i class="fa fa-comment"></i> Sonstiges
   </span>
   <span ng-switch-default>{{status}}</span>
 </span>

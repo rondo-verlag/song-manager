@@ -324,6 +324,18 @@
 
             <div class="mb-3"></div>
 
+            <div class="row has-feedback">
+              <label for="inputPublisher" class="col-md-3 col-form-label text-end">Verlag</label>
+
+              <div class="col-md-9">
+                <div class="input-group">
+                  <input type="text" ng-model="song.copyrightPublisher" class="form-control" id="inputPublisher">
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3"></div>
+
             <div class="row">
               <label for="copyrightContact" class="col-sm-3 col-form-label text-end">Halter / Kontakt</label>
 
@@ -333,26 +345,6 @@
             </div>
 
             <div class="mb-3"></div>
-
-            <div class="row">
-              <label for="copyrightStatusApp" class="col-md-3 col-form-label text-end">Copyright Status App</label>
-
-              <div class="col-sm-9">
-                <div class="row g-3">
-                  <div class="col-auto">
-                    <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-select">
-                      <option value="NEW">Neu</option>
-                      <option value="INPROGRESS">In Arbeit</option>
-                      <option value="DONE">Fertig</option>
-                      <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
-                    </select>
-                  </div>
-                  <div class="col-auto col-form-label text-end">
-                    <status status="song.copyrightStatusApp"></status>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div class="mb-3"></div>
 
@@ -393,6 +385,79 @@
                     <status status="song.copyrightStatusBook2024"></status>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label class="col-sm-3 col-form-label text-end"></label>
+
+              <div class="col-sm-9 pb-4">
+                <h5 class="mt-3">Copyright App</h5>
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="copyrightStatusApp" class="col-md-3 col-form-label text-end">Copyright Status App</label>
+
+              <div class="col-sm-9">
+                <div class="row g-3">
+                  <div class="col-auto">
+                    <select ng-model="song.copyrightStatusApp" id="copyrightStatusApp" class="form-select">
+                      <option value="NEW">Neu</option>
+                      <option value="INPROGRESS">In Arbeit</option>
+                      <option value="DONE">Fertig</option>
+                      <option value="NO_LICENSE">Fertig, keine Lizenz erhalten</option>
+                    </select>
+                  </div>
+                  <div class="col-auto col-form-label text-end">
+                    <status status="song.copyrightStatusApp"></status>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label for="license" class="col-sm-3 col-form-label text-end">Lizenz-Typ App</label>
+
+              <div class="col-sm-9">
+                <div class="row g-3">
+                  <div class="col-auto">
+                    <select ng-model="song.license_type_app" id="license-type-app" class="form-select">
+                      <option value="UNKNOWN">Unbekannt</option>
+                      <option value="ONE_TIME">Einmalig</option>
+                      <option value="PRO_RATA_50">50% pro rata</option>
+                      <option value="FREE">Gratis</option>
+                      <option value="OTHER">Sonstiges, siehe Bemerkung</option>
+                    </select>
+                  </div>
+                  <div class="col-auto col-form-label text-end">
+                    <licensetype license="song.license_type_app"></licensetype>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label for="copyrightCommentApp" class="col-sm-3 col-form-label text-end">Kommentar Copyright App</label>
+
+              <div class="col-sm-9">
+                <textarea id="copyrightCommentApp" class="form-control" rows="3" ng-model="song.copyrightCommentApp"></textarea>
+              </div>
+            </div>
+
+            <div class="mb-3"></div>
+
+            <div class="row">
+              <label for="licenseAppUntil" class="col-sm-3 col-form-label text-end">Copyright App bis</label>
+
+              <div class="col-sm-2">
+                <input type="date" id="licenseAppUntil" class="form-control" ng-value="song.licenseAppUntil" ng-model="song.licenseAppUntil"/>
               </div>
             </div>
 
@@ -510,6 +575,7 @@
               <div ng-if="song.rawMidiSize == 0" class="text-muted"><br><i class="fa fa-times" style="color: red;"></i> Keine Datei hochgeladen</div>
             </div>
           </div>
+        </form>
 
       </div>
     </div>
