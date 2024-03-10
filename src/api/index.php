@@ -29,11 +29,7 @@ const AVAILABLE_CHORDS = [
 	"E","E7","E7sus4","Eb","Em","Em6","Em7","Es","Es7","Esus4",
 	"F","F-bar","F7","Fis","Fis7","Fism","Fism7","Fm",
 	"G","G+","G-H","G7","Gism","Gm","Gm7","Gsus4",
-	"H","H7","H7sus4","Hm","Hm7","Hsus4",
-];
-
-const EMPTY_CHORDS = [
-    " ", "-"
+	"H","H7","H7sus4","Hm","Hm7","Hsus4"
 ];
 
 
@@ -782,7 +778,7 @@ $app->get('/validate', function (Request $request, Response $response, $args) us
 			// validate chords
 			$chords = $song->getClearedChordList();
 			foreach ($chords as $chord) {
-				if (!in_array($chord, AVAILABLE_CHORDS) || !in_array($chord, EMPTY_CHORDS)) {
+				if (!in_array($chord, AVAILABLE_CHORDS)) {
 					invalid('Akkord verwendet der keine Zeichnung hat: '. $chord, $data);
 				}
 			}
@@ -898,7 +894,7 @@ $app->get('/validate2022', function (Request $request, Response $response, $args
 			// validate chords
 			$chords = $song->getClearedChordList();
 			foreach ($chords as $chord) {
-				if (!in_array($chord, AVAILABLE_CHORDS) || !in_array($chord, EMPTY_CHORDS)) {
+				if (!in_array($chord, AVAILABLE_CHORDS)) {
 					$reportError('Akkordzeichnung', 'Akkord verwendet der keine Zeichnung (in der App) hat: '. $chord, $data);
 				}
 			}
