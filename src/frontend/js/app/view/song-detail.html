@@ -421,7 +421,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="license" class="col-sm-3 col-form-label text-end">Lizenz-Typ App</label>
+              <label for="license-type-app" class="col-sm-3 col-form-label text-end">Lizenz-Typ App</label>
 
               <div class="col-sm-9">
                 <div class="row g-3">
@@ -431,7 +431,7 @@
                       <option value="ONE_TIME">Einmalig</option>
                       <option value="PRO_RATA_50">50% pro rata</option>
                       <option value="FREE">Gratis</option>
-                      <option value="OTHER">Sonstiges, siehe Bemerkung</option>
+                      <option value="OTHER">Speziell, siehe Bemerkung</option>
                     </select>
                   </div>
                   <div class="col-auto col-form-label text-end">
@@ -444,7 +444,7 @@
             <div class="mb-3"></div>
 
             <div class="row">
-              <label for="copyrightCommentApp" class="col-sm-3 col-form-label text-end">Kommentar Copyright App</label>
+              <label for="copyrightCommentApp" class="col-sm-3 col-form-label text-end">Bemerkung Copyright App</label>
 
               <div class="col-sm-9">
                 <textarea id="copyrightCommentApp" class="form-control" rows="3" ng-model="song.copyrightCommentApp"></textarea>
@@ -457,7 +457,12 @@
               <label for="licenseAppUntil" class="col-sm-3 col-form-label text-end">Copyright App bis</label>
 
               <div class="col-sm-2">
-                <input type="date" id="licenseAppUntil" class="form-control" ng-value="song.licenseAppUntil" ng-model="song.licenseAppUntil"/>
+                <input type="date" id="licenseAppUntil" class="form-control" ng-value="song.licenseAppUntil" ng-model="song.licenseAppUntil" ng-disabled="song.licenseAppUntilIndefinite"/>
+              </div>
+              <div class="col-sm-2 mt-2">
+                <label>
+                  <input type="checkbox" ng-model="song.licenseAppUntilIndefinite" ng-true-value="1" ng-false-value="0" class="form-check-input"> unbestimmte Dauer
+                </label>
               </div>
             </div>
 

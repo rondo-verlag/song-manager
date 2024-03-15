@@ -2,6 +2,7 @@ ALTER TABLE `songs` ADD `copyrightPublisher` VARCHAR(1000) NOT NULL AFTER `copyr
 ALTER TABLE `songs` ADD `copyrightCommentApp` LONGTEXT NOT NULL AFTER `copyrightPublisher`;
 ALTER TABLE `songs` ADD `license_type_app` ENUM('UNKNOWN','ONE_TIME','PRO_RATA_50','FREE','OTHER') NOT NULL DEFAULT 'UNKNOWN' AFTER `license_type`;
 ALTER TABLE `songs` ADD `licenseAppUntil` DATE NULL AFTER `license_type_app`;
+ALTER TABLE `songs` ADD `licenseAppUntilIndefinite` TINYINT(1) NOT NULL DEFAULT 0 AFTER `licenseAppUntil`;
 
 # populate license_type_app
 UPDATE songs SET license_type_app = 'FREE' WHERE license_type = 'FREE';
