@@ -457,9 +457,10 @@
               <label for="licenseAppUntil" class="col-sm-3 col-form-label text-end">Copyright App bis</label>
 
               <div class="col-sm-2">
-                <input type="date" id="licenseAppUntil" class="form-control" ng-value="song.licenseAppUntil" ng-model="song.licenseAppUntil" ng-disabled="song.licenseAppUntilIndefinite"/>
+                <input type="date" id="licenseAppUntil" class="form-control" ng-value="song.licenseAppUntil" ng-model="song.licenseAppUntil" ng-if="!song.licenseAppUntilIndefinite"/>
+                <input type="text" class="form-control" ng-if="song.licenseAppUntilIndefinite" disabled/>
               </div>
-              <div class="col-sm-2 mt-2">
+              <div class="col-sm-4 mt-2">
                 <label>
                   <input type="checkbox" ng-model="song.licenseAppUntilIndefinite" ng-true-value="1" ng-false-value="0" class="form-check-input"> unbestimmte Dauer
                 </label>
