@@ -689,8 +689,8 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 
 	setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-	$songs = $DB->fetchAllAssociative("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightContact, youtubeLink, comments FROM songs ORDER BY title ASC");
-	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo mova","Seite Rondo 2024","App (bis 2022)","App (ab 2022)","App (ab 2024)","Buch 2017","Buch mova","Buch 2024","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Copyright Status Buch 2024","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Copyright Kontakt","Youtube Link","Kommentare"];
+	$songs = $DB->fetchAllAssociative("SELECT id, title, alternativeTitles, interpret, pageRondoRed, pageRondoBlue, pageRondoGreen, pageRondo2017, pageRondo2021, pageRondo2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, license, license_type, copyrightInfoApp, copyrightInfoBook, copyrightPublisher, copyrightContact, license_type_app, copyrightCommentApp, licenseAppUntil, licenseAppUntilIndefinite, youtubeLink, comments FROM songs ORDER BY title ASC");
+	$titles = ["ID","Titel","Alternative Titel","Interpret","Seite Rondo Rot","Seite Rondo Blau","Seite Rondo Gruen","Seite Rondo 2017","Seite Rondo mova","Seite Rondo 2024","App (bis 2022)","App (ab 2022)","App (ab 2024)","Buch 2017","Buch mova","Buch 2024","Status","Copyright Status App","Copyright Status Buch 2017","Copyright Status Buch 2021","Copyright Status Buch 2024","Lizenz","Lizentyp","Copyright Info App","Copyright Info Buch","Verlag","Copyright Kontakt","Lizenz-Typ App","Bemerkung Copyright App","Copyright App bis","Copyright App unbestimmte Dauer","Youtube Link","Kommentare"];
 
 	$data = [];
 	$data[] = $titles;
@@ -708,10 +708,12 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 	$sheet->getColumnDimension('B')->setWidth(30);
 	$sheet->getColumnDimension('C')->setWidth(30);
 	$sheet->getColumnDimension('D')->setWidth(20);
-	$sheet->getColumnDimension('T')->setWidth(50);
-	$sheet->getColumnDimension('U')->setWidth(50);
-	$sheet->getColumnDimension('V')->setWidth(50);
-	$sheet->getColumnDimension('W')->setWidth(200);
+	$sheet->getColumnDimension('X')->setWidth(50);
+	$sheet->getColumnDimension('Y')->setWidth(50);
+	$sheet->getColumnDimension('Z')->setWidth(20);
+	$sheet->getColumnDimension('AC')->setWidth(50);
+	$sheet->getColumnDimension('AA')->setWidth(50);
+	$sheet->getColumnDimension('AG')->setWidth(200);
 
 	header('Content-Type: application/vnd.ms-excel');
 	header('Content-Disposition: attachment;filename="Songs.xlsx"');
