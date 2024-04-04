@@ -930,4 +930,131 @@ $app->get('/validate2022', function (Request $request, Response $response, $args
 	return $response;
 });
 
+$app->get('/validate2024', function (Request $request, Response $response, $args) use (&$DB) {
+	ini_set('max_execution_time', 300);
+	$response = $response->withHeader('Content-type', 'text/html');
+	echo '<h1>Validierung</h1>';
+
+	$errors = [];
+	$reportError = function($category, $msg, $data) use (&$errors) {
+		if (!isset($errors[$category])) {
+			$errors[$category] = [];
+		}
+		$errors[$category][] = [$data, $msg];
+	};
+
+	$songIds = $DB->fetchAllAssociative("SELECT id FROM songs WHERE releaseBook2024 = 1 or releaseApp2024 order by title ASC");
+	foreach ($songIds as $songId) {
+		$song = new Song($songId['id']);
+		$data = $song->getData();
+
+		// validate pdf
+		if (!$data['rawNotesPDF']) {
+			$reportError('PDF', 'Kein PDF hochgeladen', $data);
+		}
+
+		// validate sibelius
+		if (!$data['rawSIB']) {
+			$reportError('Sibelius', 'Keine Sibelius Datei hochgeladen', $data);
+		}
+
+		// validate songtext
+		if (strpos($data['text'], '   ') !== false) {
+			$reportError('Leerzeichen', 'Drei oder mehr aufeinanderfolgende Leerzeichen in Songtext gefunden', $data);
+		}
+		if (strpos($data['text'], "\n\n\n") !== false) {
+			$reportError('Newlines', 'Drei oder mehr aufeinanderfolgende Zeilenumbrüche in Songtext gefunden', $data);
+		}
+
+		// validate page number
+		if ($data['releaseBook2024'] && !$data['pageRondo2024']) {
+			$reportError('Seitenzahlen', 'Keine Seitenzahl für Buch 2024 eingetragen', $data);
+		}
+
+		// validate license status
+		if ($data['license'] == 'UNKNOWN') {
+			$reportError('Lizenz', 'Lizenz ist noch "Unbekannt"', $data);
+		}
+
+		// validate language
+		if (!$data['lang']) {
+			$reportError('Sprache', 'Keine Sprache ausgewählt', $data);
+		}
+
+		// validate mood
+		if (!$data['mood']) {
+			$reportError('Stimmung', 'Keine Stimmung eingetragen', $data);
+		}
+
+		// validate song status
+		if ($data['status'] != 'DONE') {
+			$reportError('Status', 'Lied Status ist noch nicht "Fertig": '.$data['status'], $data);
+		}
+
+		// app crosscheck
+		if ($data['releaseBook2024'] && !$data['releaseApp2024']) {
+			$reportError('App', 'Lied ist ausgewählt für ins Buch, aber nicht für App', $data);
+		}
+
+		// License check
+		if ($data['copyrightStatusApp'] === 'NO_LICENSE' && $data['releaseApp2024']) {
+			$reportError('App Lizenz', 'Keine Lizenz für App erhalten, aber für App ausgewählt', $data);
+		}
+		if ($data['copyrightStatusBook2024'] === 'NO_LICENSE' && $data['releaseBook2024']) {
+			$reportError('Buch Lizenz', 'Keine Lizenz für Buch erhalten, aber für Buch ausgewählt', $data);
+		}
+
+		// App only
+		if ($data['releaseApp2024']) {
+
+			// validate files
+			if (!$data['rawImage']) {
+				$reportError('App Bild', 'Kein App Bild hochgeladen', $data);
+			}
+			if (!$data['rawMidi']) {
+				$reportError('App Midi', 'Keine Midi Datei hochgeladen', $data);
+			}
+
+			// youtube link
+			if (!$data['youtubeLink']) {
+				$reportError('Youtube', 'Kein Youtube Link eingetragen', $data);
+			}
+
+			// validate chords
+			$chords = $song->getClearedChordList();
+			foreach ($chords as $chord) {
+				if (!in_array($chord, AVAILABLE_CHORDS)) {
+					$reportError('Akkordzeichnung', 'Akkord verwendet der keine Zeichnung (in der App) hat: '. $chord, $data);
+				}
+			}
+
+			// validate license status
+			if ($data['license'] != 'FREE' && $data['copyrightStatusApp'] != 'DONE') {
+				$reportError('App Copyright', 'Copyright Status für App ist noch nicht "Fertig": ' . $data['copyrightStatusApp'], $data);
+			}
+		}
+
+
+
+		// Book only
+		if ($data['releaseBook2024']) {
+			// validate license status
+			if ($data['license'] != 'FREE' && $data['copyrightStatusBook2024'] != 'DONE') {
+				$reportError('Buch Copyright', 'Copyright Status für Buch noch nicht "Fertig": ' . $data['copyrightStatusBook2024'], $data);
+			}
+		}
+	}
+
+	foreach ($errors as $category => $list) {
+		echo '<h2>'.$category.' ('.count($list).')</h2>';
+		foreach ($list as $item) {
+			echo '<b style="display: inline-block; width: 300px; overflow: hidden">';
+			echo '<a href="..#/songs/'.$item[0]['id'].'">'.$item[0]['title'].'</a>:';
+			echo '</b>';
+			echo $item[1].'<br>';
+		}
+	}
+	return $response;
+});
+
 $app->run();
