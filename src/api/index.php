@@ -726,7 +726,7 @@ $app->get('/export/songs.xlsx', function (Request $request, Response $response, 
 $app->get('/validate2024', function (Request $request, Response $response, $args) use (&$DB) {
 	ini_set('max_execution_time', 300);
 	$response = $response->withHeader('Content-type', 'text/html');
-	echo '<h1>Validierung</h1>';
+	echo '<h1>Fehlerprüfung</h1>';
 
 	$errors = [];
 	$reportError = function($category, $msg, $data) use (&$errors) {
@@ -837,7 +837,11 @@ $app->get('/validate2024', function (Request $request, Response $response, $args
 	}
 
 	foreach ($errors as $category => $list) {
-		echo '<h2>'.$category.' ('.count($list).')</h2>';
+		echo '<div><a href="#'.$category.'">'.$category.' ('.count($list).')</a></div>';
+	}
+
+	foreach ($errors as $category => $list) {
+		echo '<h2 id="'.$category.'">'.$category.' ('.count($list).')</h2>';
 		foreach ($list as $item) {
 			echo '<b style="display: inline-block; width: 300px; overflow: hidden">';
 			echo '<a href="..#/songs/'.$item[0]['id'].'">'.$item[0]['title'].'</a>:';
