@@ -9,6 +9,8 @@
 module rondo {
   'use strict';
 
+  var VERSION = '4';
+
   var RondoApp = angular.module('RondoApp', ['ngRoute', 'angularFileUpload']);
 
   RondoApp.controller('SongAddCtrl', SongAddCtrl);
@@ -25,15 +27,15 @@ module rondo {
     function($routeProvider: angular.route.IRouteProvider) {
       $routeProvider.
         when('/songs', {
-          templateUrl: 'frontend/js/app/view/song-list.html',
+          templateUrl: 'frontend/js/app/view/song-list.html?v=' + VERSION,
           controller: 'SongListCtrl'
         }).
         when('/songs/:songId', {
-          templateUrl: 'frontend/js/app/view/song-detail.html',
+          templateUrl: 'frontend/js/app/view/song-detail.html?v=' + VERSION,
           controller: 'SongDetailCtrl'
         }).
         when('/add', {
-          templateUrl: 'frontend/js/app/view/song-add.html',
+          templateUrl: 'frontend/js/app/view/song-add.html?v=' + VERSION,
           controller: 'SongAddCtrl'
         }).
         otherwise({
