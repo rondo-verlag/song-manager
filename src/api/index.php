@@ -424,12 +424,29 @@ $app->get('/export/listchords', function (Request $request, Response $response, 
 
 	foreach($songs as $song_id){
 		$model = new Song($song_id['id']);
-		$chords = array_merge($chords, $model->getClearedChordList());
+		$clearedChoords = $model->getClearedChordList();
+		foreach ($clearedChoords as $chord){
+			if (isset($chords[$chord])) {
+				$chords[$chord][] = $song_id['id'];
+			} else {
+				$chords[$chord] = [$song_id['id']];
+			}
+		}
 	}
-	$chords = array_unique($chords);
-	sort($chords);
+	ksort($chords);
 
-	$response->getBody()->write(implode('<br>',$chords));
+	$html = '<table style="border-collapse: collapse; border: 1px solid #eee;">';
+	$html .= '<tr><th style="border: 1px solid #eee;">Akkord</th><th style="border: 1px solid #eee;">Anzahl Songs</th><th style="border: 1px solid #eee;">Songs</th></tr>';
+	foreach ($chords as $chord => $songIds) {
+		$html .= '<tr><td valign="top" style="border: 1px solid #eee;">'.$chord.'</td><td valign="top" style="border: 1px solid #eee;">'.count($songIds).'</td><td valign="top" style="border: 1px solid #eee;">';
+		foreach ($songIds as $songId) {
+			$html .= '<a href="../../#/songs/'.$songId.'">'.$songId.'</a> ';
+		}
+		$html .= '</td></tr>';
+	}
+	$html .= '</table>';
+
+	$response->getBody()->write($html);
 	return $response;
 });
 
