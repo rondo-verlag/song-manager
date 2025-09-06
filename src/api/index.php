@@ -8,8 +8,10 @@ require 'models/CrdParser.php';
 require 'models/File.php';
 require 'models/Song.php';
 require 'models/SongIndex.php';
+require 'helpers/Youtube.php';
 
 
+use helpers\Youtube;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Doctrine\DBAL\DriverManager;
@@ -31,7 +33,6 @@ const AVAILABLE_CHORDS = [
 	"G","G+","G-H","G7","Gism","Gm","Gm7","Gsus4",
 	"H","H7","H7sus4","Hm","Hm7","Hsus4"
 ];
-
 
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
@@ -867,6 +868,31 @@ $app->get('/validate2024', function (Request $request, Response $response, $args
 		}
 	}
 	return $response;
+});
+
+$app->get('/checkytlinks', function (Request $request, Response $response, $args) use (&$DB, &$GOOGLE_API_KEY) {
+    ini_set('max_execution_time', 300);
+    $response = $response->withHeader('Content-type', 'text/html');
+
+    echo '<h1>Ungültige Youtube Links</h1>';
+
+    $youtubeLinks = $DB->fetchAllAssociative("SELECT id, title, youtubeLink FROM songs;");
+
+    foreach ($youtubeLinks as $link) {
+        $videoId = (new helpers\Youtube)->extractVideoId($link['youtubeLink']);
+
+        if ($videoId) {
+            $result = (new helpers\Youtube)->checkLink($videoId, $GOOGLE_API_KEY);
+
+            if ($result['status'] != 'available') {
+                echo "<div><a href='..#/songs/".$link['id']."'>{$link['title']} --> Status: {$result['status']}</a></div>\n";
+            }
+        } else {
+            echo "{$link['youtubeLink']} → Invalid YouTube URL\n";
+        }
+    }
+
+    return $response;
 });
 
 $app->run();
