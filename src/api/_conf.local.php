@@ -13,5 +13,6 @@ $SQL_CREDENTIALS = array(
 );
 
 //$API_BASE_PATH = '/path/to/song-manager/src/api';
+$GOOGLE_API_KEY = '';
 
 date_default_timezone_set('Europe/Zurich');
