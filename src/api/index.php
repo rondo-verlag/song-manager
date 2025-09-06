@@ -888,7 +888,7 @@ $app->get('/checkytlinks', function (Request $request, Response $response, $args
                 echo "<div><a href='..#/songs/".$link['id']."'>{$link['title']} --> Status: {$result['status']}</a></div>\n";
             }
         } else {
-            echo "{$link['youtubeLink']} → Invalid YouTube URL\n";
+            echo "<div><a href='..#/songs/".$link['id']."'>{$link['title']} --> Invalid YouTube URL\n";
         }
     }
 
