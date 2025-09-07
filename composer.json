@@ -3,7 +3,7 @@
     "license": "proprietary",
     "type": "project",
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.3",
         "slim/slim": "^4.10.0",
         "doctrine/dbal": "^v3.6.1",
         "maennchen/zipstream-php": "^3.1.0",
@@ -13,7 +13,7 @@
         "ext-mbstring": "*",
         "ext-zip": "*",
         "phpoffice/phpspreadsheet": "^1.22.0",
-        "slim/psr7": "^1.6.0"
+        "slim/psr7": "^1.7.1"
     },
     "config": {
         "optimize-autoloader": true,
