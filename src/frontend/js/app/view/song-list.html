@@ -80,6 +80,7 @@
             <th ng-click="orderBy = 'releaseBook2024'; orderReversed = !orderReversed">Buch2024</th>
             <th ng-click="orderBy = 'releaseBook2021'; orderReversed = !orderReversed">mova</th>
             <th ng-click="orderBy = 'releaseBook2017'; orderReversed = !orderReversed">Buch2017</th>
+            <th ng-click="orderBy = 'licenseAppUntil'; orderReversed = !orderReversed">App Lizenz</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -109,6 +110,7 @@
             <td><yesno state="song.releaseBook2024"></yesno></td>
             <td><yesno state="song.releaseBook2021"></yesno></td>
             <td><yesno state="song.releaseBook2017"></yesno></td>
+            <td class="text-nowrap">{{song.licenseAppUntil}}</td>
             <td><button type="button" class="btn btn-sm btn-success" ng-click="editSong(song.id)">Bearbeiten</button></td>
           </tr>
         </tbody>

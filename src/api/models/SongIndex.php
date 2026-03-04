@@ -10,7 +10,7 @@ class SongIndex {
 
 	public function getSongIndex(){
 		$songs = $this->DB->fetchAllAssociative("SELECT 
-				 id, title, interpret, license, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024,
+				 id, title, interpret, license, status, copyrightStatusApp, copyrightStatusBook2017, copyrightStatusBook2021, copyrightStatusBook2024, releaseApp2017, releaseApp2022, releaseApp2024, releaseBook2017, releaseBook2021, releaseBook2024, licenseAppUntil,
 				 (rawImage IS NOT NULL) AS hasImage,
 				 (rawSIB IS NOT NULL) AS hasSIB,
 				 (rawMidi IS NOT NULL) AS hasMidi,
