@@ -17,8 +17,8 @@ if [ ! -d "$PROJECT_DIR/.git" ]; then
 else
     # Update Source Code
     cd $PROJECT_DIR
-    git status
-    git pull --rebase
+    git fetch origin
+    git reset --hard origin/master
     git submodule update --recursive
 fi
 
