@@ -59,22 +59,22 @@
 				<table class="table table-striped table-sm">
 					<thead>
 						<tr>
-							<th @click="setOrder('id')" style="cursor:pointer">ID</th>
-							<th @click="setOrder('title')" style="cursor:pointer">Titel</th>
-							<th @click="setOrder('interpret')" style="cursor:pointer">Interpret</th>
-							<th @click="setOrder('license')" style="cursor:pointer">Lizenz</th>
-							<th @click="setOrder('status')" style="cursor:pointer">Status</th>
-							<th @click="setOrder('hasImage')" style="cursor:pointer">Bild</th>
-							<th @click="setOrder('hasNotesPDF')" style="cursor:pointer">Noten</th>
-							<th @click="setOrder('hasMidi')" style="cursor:pointer">Midi</th>
-							<th @click="setOrder('copyrightStatusApp')" style="cursor:pointer">&copy; App</th>
-							<th @click="setOrder('copyrightStatusBook2024')" style="cursor:pointer">&copy; Buch2024</th>
-							<th @click="setOrder('copyrightStatusBook2021')" style="cursor:pointer">&copy; BuchMova</th>
-							<th @click="setOrder('releaseApp2024')" style="cursor:pointer">App</th>
-							<th @click="setOrder('releaseBook2024')" style="cursor:pointer">Buch2024</th>
-							<th @click="setOrder('releaseBook2021')" style="cursor:pointer">mova</th>
-							<th @click="setOrder('releaseBook2017')" style="cursor:pointer">Buch2017</th>
-							<th @click="setOrder('licenseAppUntil')" style="cursor:pointer">App Lizenz</th>
+							<th @click="setOrder('id')" style="cursor:pointer;white-space:nowrap">ID <i :class="sortIcon('id')"></i></th>
+							<th @click="setOrder('title')" style="cursor:pointer;white-space:nowrap">Titel <i :class="sortIcon('title')"></i></th>
+							<th @click="setOrder('interpret')" style="cursor:pointer;white-space:nowrap">Interpret <i :class="sortIcon('interpret')"></i></th>
+							<th @click="setOrder('license')" style="cursor:pointer;white-space:nowrap">Lizenz <i :class="sortIcon('license')"></i></th>
+							<th @click="setOrder('status')" style="cursor:pointer;white-space:nowrap">Status <i :class="sortIcon('status')"></i></th>
+							<th @click="setOrder('hasImage')" style="cursor:pointer;white-space:nowrap">Bild <i :class="sortIcon('hasImage')"></i></th>
+							<th @click="setOrder('hasNotesPDF')" style="cursor:pointer;white-space:nowrap">Noten <i :class="sortIcon('hasNotesPDF')"></i></th>
+							<th @click="setOrder('hasMidi')" style="cursor:pointer;white-space:nowrap">Midi <i :class="sortIcon('hasMidi')"></i></th>
+							<th @click="setOrder('copyrightStatusApp')" style="cursor:pointer;white-space:nowrap">&copy; App <i :class="sortIcon('copyrightStatusApp')"></i></th>
+							<th @click="setOrder('copyrightStatusBook2024')" style="cursor:pointer;white-space:nowrap">&copy; Buch2024 <i :class="sortIcon('copyrightStatusBook2024')"></i></th>
+							<th @click="setOrder('copyrightStatusBook2021')" style="cursor:pointer;white-space:nowrap">&copy; BuchMova <i :class="sortIcon('copyrightStatusBook2021')"></i></th>
+							<th @click="setOrder('releaseApp2024')" style="cursor:pointer;white-space:nowrap">App <i :class="sortIcon('releaseApp2024')"></i></th>
+							<th @click="setOrder('releaseBook2024')" style="cursor:pointer;white-space:nowrap">Buch2024 <i :class="sortIcon('releaseBook2024')"></i></th>
+							<th @click="setOrder('releaseBook2021')" style="cursor:pointer;white-space:nowrap">mova <i :class="sortIcon('releaseBook2021')"></i></th>
+							<th @click="setOrder('releaseBook2017')" style="cursor:pointer;white-space:nowrap">Buch2017 <i :class="sortIcon('releaseBook2017')"></i></th>
+							<th @click="setOrder('licenseAppUntil')" style="cursor:pointer;white-space:nowrap">App Lizenz <i :class="sortIcon('licenseAppUntil')"></i></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
@@ -104,7 +104,7 @@
 							<td><YesNo :state="song.releaseBook2024 ?? 0" /></td>
 							<td><YesNo :state="song.releaseBook2021 ?? 0" /></td>
 							<td><YesNo :state="song.releaseBook2017 ?? 0" /></td>
-							<td class="text-nowrap">{{ song.licenseAppUntil }}</td>
+							<td class="text-nowrap" :class="licenseAppUntilClass(song.licenseAppUntil)">{{ song.licenseAppUntil }}</td>
 							<td><button type="button" class="btn btn-sm btn-success" @click="editSong(song.id)">Bearbeiten</button></td>
 						</tr>
 					</tbody>
@@ -158,6 +158,13 @@ export default defineComponent({
 
 		watch([orderBy, orderReversed, filter2017Active, filter2021Active, filter2024Active, filterAppActive], savePrefs)
 
+		function sortIcon(field: keyof Song) {
+			if (orderBy.value !== field) {
+				return ''
+			}
+			return orderReversed.value ? 'fa fa-sort-desc' : 'fa fa-sort-asc'
+		}
+
 		function setOrder(field: keyof Song) {
 			if (orderBy.value === field) {
 				orderReversed.value = !orderReversed.value
@@ -198,6 +205,26 @@ export default defineComponent({
 			return result
 		})
 
+		function licenseAppUntilClass(dateStr: string | null | undefined): string {
+			if (!dateStr) {
+				return ''
+			}
+			const d = new Date(dateStr)
+			if (isNaN(d.getTime())) {
+				return ''
+			}
+			const now = new Date()
+			const sixMonths = new Date(now)
+			sixMonths.setMonth(sixMonths.getMonth() + 6)
+			if (d < now) {
+				return 'text-danger'
+			}
+			if (d <= sixMonths) {
+				return 'text-warning'
+			}
+			return ''
+		}
+
 		function editSong(id: string) {
 			router.push('/songs/' + id)
 		}
@@ -213,7 +240,7 @@ export default defineComponent({
 			search, orderBy, orderReversed,
 			filter2017Active, filter2021Active, filter2024Active, filterAppActive,
 			isExportDropdownOpen, isMoreDropdownOpen,
-			filteredSongs, setOrder, editSong
+			filteredSongs, setOrder, sortIcon, editSong, licenseAppUntilClass
 		}
 	}
 })
