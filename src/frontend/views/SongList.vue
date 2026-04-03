@@ -116,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
+import { defineComponent, ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Song } from '../types/Song'
 import StatusBadge from '../components/StatusBadge.vue'
@@ -130,14 +130,33 @@ export default defineComponent({
 		const router = useRouter()
 		const list = ref<Song[]>([])
 		const search = ref('')
-		const orderBy = ref<keyof Song>('title')
-		const orderReversed = ref(false)
-		const filter2017Active = ref(false)
-		const filter2021Active = ref(false)
-		const filter2024Active = ref(false)
-		const filterAppActive = ref(false)
+		const LS_KEY = 'songlist_prefs'
+		function loadPrefs() {
+			try { return JSON.parse(localStorage.getItem(LS_KEY) ?? '{}') } catch { return {} }
+		}
+		const prefs = loadPrefs()
+
+		const orderBy = ref<keyof Song>(prefs.orderBy ?? 'title')
+		const orderReversed = ref<boolean>(prefs.orderReversed ?? false)
+		const filter2017Active = ref<boolean>(prefs.filter2017Active ?? false)
+		const filter2021Active = ref<boolean>(prefs.filter2021Active ?? false)
+		const filter2024Active = ref<boolean>(prefs.filter2024Active ?? false)
+		const filterAppActive = ref<boolean>(prefs.filterAppActive ?? false)
 		const isExportDropdownOpen = ref(false)
 		const isMoreDropdownOpen = ref(false)
+
+		function savePrefs() {
+			localStorage.setItem(LS_KEY, JSON.stringify({
+				orderBy: orderBy.value,
+				orderReversed: orderReversed.value,
+				filter2017Active: filter2017Active.value,
+				filter2021Active: filter2021Active.value,
+				filter2024Active: filter2024Active.value,
+				filterAppActive: filterAppActive.value,
+			}))
+		}
+
+		watch([orderBy, orderReversed, filter2017Active, filter2021Active, filter2024Active, filterAppActive], savePrefs)
 
 		function setOrder(field: keyof Song) {
 			if (orderBy.value === field) {
