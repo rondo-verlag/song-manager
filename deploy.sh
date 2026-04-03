@@ -30,5 +30,8 @@ cp $HTACCESS_FILE $PROJECT_DIR/src/.htaccess
 curl -sS https://getcomposer.org/installer | php81
 php81 composer.phar install
 
+# Frontend Build
+npm install
+npm run build
 
 echo -e "\n ======= Installation Done ========\n"

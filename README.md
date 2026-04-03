@@ -1,10 +1,37 @@
-song-manager
-============
+# Song Manager
 
 Frontend to manage music data for the Rondo App.
 
-### build from source
+## Tech Stack
 
-    yarn global add typescript
-    
-    tsc frontend/js/app/app.ts --outFile frontend/js/app/app.js -sourcemap
+- **Backend**: PHP / Slim Framework
+- **Frontend**: Vue 3 + TypeScript + Vite
+- **CSS**: Bootstrap 5, Font Awesome 4
+
+## Development
+
+Install frontend dependencies:
+
+```bash
+npm install
+```
+
+Start the Vite dev server (proxies `/api` to `localhost`):
+
+```bash
+npm run dev
+```
+
+## Build
+
+Build the frontend bundle to `src/frontend/dist/`:
+
+```bash
+npm run build
+```
+
+The production entry point is `src/index.html`
+
+## Deployment
+
+Use the GitHub Deploy Action to deploy to production.
